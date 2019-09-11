@@ -18,7 +18,8 @@ class Compiler
     {
         try
         {
-            await this.removeAssetsDirectory();
+            await this.removeBuildDirectory();
+            await this.createBuildDirectory();
             await this.createAssetsDirectory();
             await this.moveApplication();
             await this.moveWorker();
@@ -512,15 +513,35 @@ class Compiler
         });
     }
 
-    removeAssetsDirectory()
+    createBuildDirectory()
     {
         return new Promise((resolve, reject)=>{
-            fs.rmdir('build/assets', { recursive: true }, (error)=>{
+            fs.mkdir('build', (error)=>{
                 if (error)
                 {
                     reject(error);
                 }
 
+                resolve();
+            });
+        });
+    }
+
+    removeBuildDirectory()
+    {
+        return new Promise((resolve, reject)=>{
+            fs.promises.access('build')
+            .then(() => {
+                fs.rmdir('build', { recursive: true }, (error)=>{
+                    if (error)
+                    {
+                        reject(error);
+                    }
+    
+                    resolve();
+                });
+            })
+            .catch(() => {
                 resolve();
             });
         });
