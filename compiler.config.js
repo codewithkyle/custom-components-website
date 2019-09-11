@@ -56,6 +56,7 @@ class Compiler
     moveCNAME()
     {
         return new Promise((resolve, reject) => {
+            console.log('Checking for CNAME');
             fs.promises.access('CNAME')
             .then(() => {
                 fs.copyFile('CNAME', 'build/CNAME', (error) => {
@@ -70,6 +71,7 @@ class Compiler
                 });
             })
             .catch(() => {
+                console.log('Didn\'t find a CNAME file');
                 resolve();
             });
         });
