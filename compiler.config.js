@@ -29,11 +29,11 @@ class Compiler
             const homepageHtmlFile = await this.getHomepageHtmlFile();
             await this.updateHomepageHtml(homepageHtmlFile, timestamp);
             await this.updateHtmlFiles(htmlFiles, timestamp)
-            
+
             /** SASS */
             const sassFiles = await this.getSassFiles();
             await this.compileSass(sassFiles, timestamp);
-            
+
             /** Web Components */
             const componentFiles = await this.getComponentFiles();
             await this.moveComponents(componentFiles, timestamp);
@@ -44,7 +44,7 @@ class Compiler
             const dependencies = await this.getWebDependencies();
             const serverSafeBundleNames = await this.writeBundles(dependencies);
             await this.buildPackages(serverSafeBundleNames, timestamp);
-            console.log('Hello?!?!?');
+            
             await this.moveCNAME();
         }
         catch (error)
@@ -56,7 +56,6 @@ class Compiler
     moveCNAME()
     {
         return new Promise((resolve, reject) => {
-            console.log('Checking for CNAME');
             fs.promises.access('CNAME')
             .then(() => {
                 fs.copyFile('CNAME', 'build/CNAME', (error) => {
@@ -65,13 +64,10 @@ class Compiler
                         reject(error);
                     }
 
-                    console.log('Moved CNAME file');
-
                     resolve();
                 });
             })
             .catch(() => {
-                console.log('Didn\'t find a CNAME file');
                 resolve();
             });
         });
@@ -81,6 +77,12 @@ class Compiler
     {
         const built = [];
         return new Promise((resolve, reject)=>{
+
+            if (serverSafeBundleNames.length === 0)
+            {
+                resolve();
+            }
+
             for (let i = 0; i < serverSafeBundleNames.length; i++)
             {
                 const inputOptions = {
@@ -140,6 +142,11 @@ class Compiler
         return new Promise((resolve, reject)=>{
             
             const writtenBundles = [];
+
+            if (dependencies.length === 0)
+            {
+                resolve(writtenBundles);
+            }
             
             for (let i = 0; i < dependencies.length; i++)
             {
@@ -242,6 +249,11 @@ class Compiler
     {
         return new Promise((resolve, reject)=>{
             let moved = 0;
+
+            if (files.length === 0)
+            {
+                resolve();
+            }
 
             for (let i = 0; i < files.length; i++)
             {
