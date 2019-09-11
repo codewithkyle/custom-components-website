@@ -44,7 +44,7 @@ class Compiler
             const dependencies = await this.getWebDependencies();
             const serverSafeBundleNames = await this.writeBundles(dependencies);
             await this.buildPackages(serverSafeBundleNames, timestamp);
-
+            console.log('Hello?!?!?');
             await this.moveCNAME();
         }
         catch (error)
@@ -55,7 +55,6 @@ class Compiler
 
     moveCNAME()
     {
-        console.log('Hello?!?!?');
         return new Promise((resolve, reject) => {
             console.log('Checking for CNAME');
             fs.promises.access('CNAME')
