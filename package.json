@@ -12,7 +12,7 @@
   "webDependencies": [],
   "scripts": {
     "build": "npm run compile && npm run preview",
-    "compile": "node ./cleanup.config.js && tsc && node ./compiler.config.js",
+    "compile": "tsc && node ./compiler.config.js",
     "preview": "http-server ./build/",
     "deploy": "node ./deploy.config.js"
   },
