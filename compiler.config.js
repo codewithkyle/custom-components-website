@@ -64,6 +64,8 @@ class Compiler
                         reject(error);
                     }
 
+                    console.log('Moved CNAME file');
+
                     resolve();
                 });
             })
