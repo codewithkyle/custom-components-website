@@ -55,6 +55,7 @@ class Compiler
 
     moveCNAME()
     {
+        console.log('Hello?!?!?');
         return new Promise((resolve, reject) => {
             console.log('Checking for CNAME');
             fs.promises.access('CNAME')
