@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,900&display=swap" rel="stylesheet">
 
     <script defer>
-        var stylesheets = ['colors', 'reset', 'settings'];
+        var stylesheets = ['colors', 'reset', 'settings', 'layout'];
     </script>
     <script defer>
         var modules = [];
@@ -20,6 +20,7 @@
         var components = [];
     </script>
 
+    <!-- Loading Screen -->
     <style>
         html.is-loading loading-screen
         {
@@ -116,7 +117,15 @@
         </loading-logo>
     </loading-screen>
     <main role="main">
-        REPLACE_WITH_HTML    
+        <aside>
+        </aside>
+        <demo-view>
+            <demo-wrapper>
+                REPLACE_WITH_HTML
+            </demo-wrapper>
+        </demo-view>
+        <source-view>
+        </source-view>
     </main>
     <script type="module" src="assets/application.js"></script>
     <script type="module">
