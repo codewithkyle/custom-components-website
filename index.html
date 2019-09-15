@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="is-loading" data-cachebust="1568208938238">
+<html lang="en" class="is-loading" data-cachebust="1568568676710">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,900&display=swap" rel="stylesheet">
 
     <script defer>
-        var stylesheets = ['colors', 'reset', 'settings'];
+        var stylesheets = ['colors', 'reset', 'settings', 'layout'];
     </script>
     <script defer>
         var modules = [];
@@ -20,6 +20,7 @@
         var components = [];
     </script>
 
+    <!-- Loading Screen -->
     <style>
         html.is-loading loading-screen
         {
@@ -116,10 +117,18 @@
         </loading-logo>
     </loading-screen>
     <main role="main">
-        <!-- <script defer>stylesheets = [...stylesheets];</script> -->
+        <aside>
+        </aside>
+        <demo-view>
+            <demo-wrapper>
+                <!-- <script defer>stylesheets = [...stylesheets];</script> -->
 <!-- <script defer>components = [...components];</script> -->
 
-<span>Homepage</span>    
+Homepage
+            </demo-wrapper>
+        </demo-view>
+        <source-view>
+        </source-view>
     </main>
     <script type="module" src="assets/application.js"></script>
     <script type="module">
