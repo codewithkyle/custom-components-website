@@ -3,7 +3,7 @@ body
     background-color: var(--cool-grey);
 }
 
-aside
+component-navigation
 {
     width: 300px;
     height: 100vh;
@@ -11,6 +11,101 @@ aside
     position: fixed;
     top: 0;
     left: 0;
+    padding: 2rem 0;
+
+    navigation-component
+    {
+        display: block;
+        width: 100%;
+
+        input
+        {
+            position: absolute;
+            visibility: hidden;
+            opacity: 0;
+            top: -9999px;
+            left: -9999px;
+            width: 0;
+            height: 0;
+
+            &:checked
+            {
+                & + label
+                {
+                    color: var(--primary);
+
+                    svg
+                    {
+                        transform: rotate(90deg);
+                    }
+                }
+
+                & ~ components-wrapper
+                {
+                    max-height: none;
+                }
+            }
+        }
+
+        label
+        {
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: center;
+            padding: 0 1rem;
+            height: 36px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 150ms ease-in-out;
+
+            &:hover
+            {
+                background-color: var(--cool-grey-hover);
+            }
+
+            &:active
+            {
+                background-color: var(--primary-active-opaque);
+                color: var(--primary);
+            }
+
+            span
+            {
+                text-transform: capitalize;
+                opacity: 0.87;
+            }
+
+            svg
+            {
+                width: 0.75rem;
+                height: 0.75rem;
+                opacity: 0.6;
+                transform-origin: center;
+                margin-right: 0.5rem;
+            }
+        }
+
+        components-wrapper
+        {
+            display: block;
+            width: 100%;
+            max-height: 0;
+            overflow: hidden;
+
+            a
+            {
+                display: flex;
+                flex-flow: row nowrap;
+                align-items: center;
+                width: 100%;
+                padding: 0 2rem;
+                height: 36px;
+                font-size: 0.875rem;
+                text-transform: capitalize;
+                opacity: 0.87;
+            }
+        }
+    }
 }
 
 article
