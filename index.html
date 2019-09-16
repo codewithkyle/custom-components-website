@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" class="is-loading" data-cachebust="1568634277468">
+<html lang="en" class="is-loading" data-cachebust="1568635889796">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
-    <title>Sandbox Framework</title>
-    <meta name="description" content="A sandbox framework for building demos, prototypes, or web applications for use with GitHub Pages.">
+    <title>Web Component Library</title>
+    <meta name="description" content="Browse, demo, and download prebuilt web components based around the Atomic Design methodology.">
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,900&display=swap" rel="stylesheet">
 
@@ -113,24 +113,26 @@
             <span>Loading application...</span>
         </div>
         <loading-logo>
-            Sandbox Frameworks by <a href="https://kyleandrews.dev/">Kyle Andrews</a>
+            Web Components by <a style="text-decoration: none; color: inherit;" href="https://kyleandrews.dev/">Kyle Andrews</a>
         </loading-logo>
     </loading-screen>
     <main role="main">
         <aside>
         </aside>
-        <demo-view>
-            <demo-wrapper>
-                <!-- <script defer>stylesheets = [...stylesheets];</script> -->
+        <article>
+            <demo-view>
+                <demo-wrapper>
+                    <!-- <script defer>stylesheets = [...stylesheets];</script> -->
 <!-- <script defer>components = [...components];</script> -->
 
 Homepage
-            </demo-wrapper>
-        </demo-view>
-        <source-view>
-        </source-view>
+                </demo-wrapper>
+            </demo-view>
+            <source-view>
+            </source-view>
+        </article>
     </main>
-    <script type="module" src="assets/application.js"></script>
+    <script type="module" src="/assets/application.js"></script>
     <script type="module">
         if ('serviceWorker' in navigator && !window.location.origin.match(/\.local/gi) && !window.location.hostname.match('localhost') && !window.location.hostname.match('127.0.0.1'))
         {
