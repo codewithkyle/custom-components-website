@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="is-loading" data-cachebust="1568635889796">
+<html lang="en" class="is-loading" data-cachebust="1568638195191">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +17,7 @@
         var modules = [];
     </script>
     <script defer>
-        var components = [];
+        var components = ['component-navigation', 'navigation-component'];
     </script>
 
     <!-- Loading Screen -->
@@ -117,8 +117,16 @@
         </loading-logo>
     </loading-screen>
     <main role="main">
-        <aside>
-        </aside>
+        <component-navigation>
+            <template tag="navigation-component">
+                <input type="checkbox">
+                <label>
+                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="caret-right" class="svg-inline--fa fa-caret-right fa-w-6" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512"><path fill="currentColor" d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"></path></svg>
+                    <span></span>
+                </label>
+                <components-wrapper></components-wrapper>
+            </template>
+        </component-navigation>
         <article>
             <demo-view>
                 <demo-wrapper>
