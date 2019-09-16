@@ -44,6 +44,12 @@ class Compiler
             const dependencies = await this.getWebDependencies();
             const serverSafeBundleNames = await this.writeBundles(dependencies);
             await this.buildPackages(serverSafeBundleNames, timestamp);
+
+            /** Build Navigation JSON */
+            const categories = await this.getCategories();
+            const components = await this.getComponents();
+            const navigation = await this.buildNavigation(categories, components);
+            await this.generateNavigationFile(navigation);
             
             await this.moveCNAME();
         }
@@ -69,6 +75,109 @@ class Compiler
             })
             .catch(() => {
                 resolve();
+            });
+        });
+    }
+
+    generateNavigationFile(navigation)
+    {
+        return new Promise((resolve, reject) => {
+            let navigationData = '{\n';
+            for (let i = 0; i < navigation.length; i++)
+            {
+                navigationData += `\t"${ navigation[i].category }": [\n`;
+                for (let k = 0; k < navigation[i].components.length; k++)
+                {
+                    navigationData += `\t\t"${ navigation[i].components[k] }"${ (k === (navigation[i].components.length - 1)) ? '' : ',' }\n`;
+                }
+                navigationData += `\t]${ (i === navigation.length - 1) ? '' : ',' }\n`;
+            }
+            navigationData += '}';
+
+            fs.writeFile('build/assets/navigation.json', navigationData, (error) => {
+                if (error)
+                {
+                    reject(error);
+                }
+
+                resolve();
+            });
+        });
+    }
+
+    buildNavigation(categories, components)
+    {
+        return new Promise((resolve) => {
+            const navigation = [];
+            for (let i = 0; i < categories.length; i++)
+            {
+                const newCategoryNavigation = {
+                    category: categories[i],
+                    components: []
+                }
+
+                for (let k = 0; k < components.length; k++)
+                {
+                    if (components[k].match(categories[i]))
+                    {
+                        let cleanName = components[k].replace(`${ categories[i] }/`, '').trim();
+                        newCategoryNavigation.components.push(cleanName);
+                    }
+                }
+
+                if (newCategoryNavigation.components.length > 0)
+                {
+                    navigation.push(newCategoryNavigation);
+                }
+            }
+
+            resolve(navigation);
+        });
+    }
+
+    getComponents()
+    {
+        return new Promise((resolve, reject) => {
+            glob('src/*/*/', (error, directories) => {
+                if (error)
+                {
+                    reject(error);
+                }
+
+                const components = [];
+                for (let i = 0; i < directories.length; i++)
+                {
+                    let cleanName = directories[i].replace(/(\/)$/g, '').replace(/(src\/)/g, '').trim();
+                    components.push(cleanName);
+                }
+
+                resolve(components);
+            });
+        });
+    }
+
+    getCategories()
+    {
+        return new Promise((resolve, reject) => {
+            glob('src/*/', (error, directories) => {
+                if (error)
+                {
+                    reject(error);
+                }
+
+                const categories = [];
+                for (let i = 0; i < directories.length; i++)
+                {
+                    let cleanName = directories[i].replace('src/', '');
+                    cleanName = cleanName.replace(/(web\_modules)|\//g, '').trim();
+
+                    if (cleanName !== '')
+                    {
+                        categories.push(cleanName);
+                    }
+                }
+
+                resolve(categories);
             });
         });
     }
