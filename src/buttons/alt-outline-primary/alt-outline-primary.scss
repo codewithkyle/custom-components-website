@@ -1,4 +1,4 @@
-solid-primary
+alt-outline-primary
 {
 	display: inline-block;
 	height: 2.25rem;
@@ -13,22 +13,22 @@ solid-primary
 	cursor: pointer;
 	font-size: 0.875rem;
 	min-width: 5rem;
+	background-color: transparent;
 	transition: background-color 75ms ease;
 
 	// Colors
-	border-color: var(--primary);
-	background-color: var(--primary);
-	color: var(--white);
+	border-color: var(--grey-2);
+	color: var(--primary);
 
 	&:hover
 	{
-		background-color: var(--primary-hover);
-		border-color: var(--primary-hover);
+		background-color: var(--primary-hover-opacity);
+		border-color: var(--grey-3);
 	}
 
 	&:active
 	{
-		background-color: var(--primary-active);
-		border-color: var(--primary-active);
+		background-color: var(--primary-active-opacity);
+		border-color: var(--primary);
 	}
 }
