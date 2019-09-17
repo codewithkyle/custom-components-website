@@ -14,13 +14,21 @@ class SourceViewComponent extends HTMLElement
 
     private handlePageLoadEvent:EventListener = this.load.bind(this);
 
-    private loadRaw(category, component, extension) : Promise<string>
+    private loadRaw(category, component, filename, extension) : Promise<string>
     {
         return new Promise((resolve, reject) => {
-            fetch(`https://raw.githubusercontent.com/codewithkyle/custom-components-website/master/src/${ category }/${ component }/${ (extension === 'html') ? 'index' : component }.${ extension }`)
-            .then(request => request.text())
-            .then(response => {
-                resolve(response);
+            fetch(`https://raw.githubusercontent.com/codewithkyle/custom-components-website/master/src/${ category }/${ component }/${ filename }.${ extension }`)
+            .then(request => {
+                if (request.ok)
+                {
+                    request.text().then(response => {
+                        resolve(response);
+                    });
+                }
+                else
+                {
+                    reject();
+                }
             })
             .catch(error => {
                 reject(error);
@@ -33,7 +41,7 @@ class SourceViewComponent extends HTMLElement
         this._tabsContainer.innerHTML = '';
         this._sourceViews.innerHTML = '';
 
-        await this.loadRaw(e.detail.category, e.detail.component, 'html')
+        await this.loadRaw(e.detail.category, e.detail.component, 'index', 'html')
         .then(html => {
             const tab = document.createElement('tab-component');
             tab.innerText = 'HTML';
@@ -51,7 +59,7 @@ class SourceViewComponent extends HTMLElement
             console.error(error);
         });
 
-        await this.loadRaw(e.detail.category, e.detail.component, 'scss')
+        await this.loadRaw(e.detail.category, e.detail.component, e.detail.component, 'scss')
         .then(sass => {
             const tab = document.createElement('tab-component');
             tab.innerText = 'SASS';
@@ -60,6 +68,60 @@ class SourceViewComponent extends HTMLElement
             const sourceCode = document.createElement('code');
             sourceCode.innerHTML = sass;
             sourceCode.dataset.view = 'SASS';
+            sourceCode.classList.add('is-hidden');
+
+            this._sourceViews.appendChild(sourceCode);
+            this._tabsContainer.appendChild(tab);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+        await this.loadRaw(e.detail.category, e.detail.component, e.detail.component, 'ts')
+        .then(typescriptData => {
+            const tab = document.createElement('tab-component');
+            tab.innerText = 'TS';
+            tab.dataset.view = 'TS';
+
+            const sourceCode = document.createElement('code');
+            sourceCode.innerHTML = typescriptData;
+            sourceCode.dataset.view = 'TS';
+            sourceCode.classList.add('is-hidden');
+
+            this._sourceViews.appendChild(sourceCode);
+            this._tabsContainer.appendChild(tab);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+        await this.loadRaw(e.detail.category, e.detail.component, 'readme', 'md')
+        .then(readmeData => {
+            const tab = document.createElement('tab-component');
+            tab.innerText = 'README';
+            tab.dataset.view = 'README';
+
+            const sourceCode = document.createElement('code');
+            sourceCode.innerHTML = readmeData;
+            sourceCode.dataset.view = 'README';
+            sourceCode.classList.add('is-hidden');
+            
+            this._sourceViews.appendChild(sourceCode);
+            this._tabsContainer.appendChild(tab);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+        await this.loadRaw(e.detail.category, e.detail.component, 'changelog', 'md')
+        .then(changelogData => {
+            const tab = document.createElement('tab-component');
+            tab.innerText = 'CHANGELOG';
+            tab.dataset.view = 'CHANGELOG';
+
+            const sourceCode = document.createElement('code');
+            sourceCode.innerHTML = changelogData;
+            sourceCode.dataset.view = 'CHANGELOG';
             sourceCode.classList.add('is-hidden');
             
             this._sourceViews.appendChild(sourceCode);

@@ -4,3 +4,4 @@
 // }
 
 declare var navigationManager: NavigationManager;
+declare var sourceManager: SourceManager;

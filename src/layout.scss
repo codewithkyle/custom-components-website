@@ -228,15 +228,12 @@ source-view-component
 
         code
         {
+            white-space: pre-wrap;
+
             &.is-hidden
             {
                 display: none;
             }
         }
-    }
-
-    tab-component
-    {
-        white-space: pre-wrap;
     }
 }
