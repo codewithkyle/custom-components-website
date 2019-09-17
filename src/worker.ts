@@ -19,30 +19,18 @@ self.addEventListener('message', (event)=>{
 });
 
 self.addEventListener('fetch', (event:any) => {
-    const requestedFile = event.request.url.replace(/.*\//, '');
-    if (requestedFile.match('.js') || requestedFile.match('.css'))
-    {
-        event.respondWith(
-            caches.match(event.request).then((resp) => {
-                return resp || fetch(event.request).then((response) => {
-                    let responseClone = response.clone();
-                    caches.open(currentTimestamp).then((cache) => {
-                        cache.put(event.request, responseClone);
-                    });
-    
-                    return response;
+    event.respondWith(
+        caches.match(event.request).then((resp) => {
+            return resp || fetch(event.request).then((response) => {
+                let responseClone = response.clone();
+                caches.open(currentTimestamp).then((cache) => {
+                    cache.put(event.request, responseClone);
                 });
-            }).catch(() => {
-                return new Response('No internet');
-            })
-        );
-    }
-    else
-    {
-        event.respondWith(
-            fetch(event.request).then((response) => {
+
                 return response;
-            })
-        );
-    }
+            });
+        }).catch(() => {
+            return new Response('No internet');
+        })
+    );
 });

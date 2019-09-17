@@ -12,8 +12,9 @@ component-navigation
     top: 0;
     left: 0;
     padding: 2rem 0;
+    user-select: none;
 
-    navigation-component
+    navigation-dropdown-component
     {
         display: block;
         width: 100%;
@@ -92,7 +93,7 @@ component-navigation
             max-height: 0;
             overflow: hidden;
 
-            a
+            navigation-component
             {
                 display: flex;
                 flex-flow: row nowrap;
@@ -103,6 +104,7 @@ component-navigation
                 font-size: 0.75rem;
                 text-transform: capitalize;
                 opacity: 0.87;
+                cursor: pointer;
                 transition: all 150ms ease-in-out;
 
                 &:hover
@@ -115,8 +117,33 @@ component-navigation
                     background-color: var(--primary-active-opaque);
                     color: var(--primary);
                 }
+
+                &.is-active
+                {
+                    background-color: var(--primary);
+                    color: var(--white);
+
+                    &:hover
+                    {
+                        background-color: var(--primary-hover);
+                    }
+
+                    &:active
+                    {
+                        background-color: var(--primary-active);
+                    }
+                }
             }
         }
+    }
+
+    a
+    {
+        font-weight: 500;
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+        padding: 0 1rem;
+        opacity: 0.87;
     }
 }
 

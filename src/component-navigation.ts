@@ -5,7 +5,7 @@ class ComponentNavigation extends HTMLElement
     constructor()
     {
         super();
-        this.navigationComponentTemplate = document.body.querySelector('template[tag="navigation-component"]');
+        this.navigationComponentTemplate = document.body.querySelector('template[tag="navigation"]');
     }
 
     private fetchNavigation() : void
@@ -20,27 +20,27 @@ class ComponentNavigation extends HTMLElement
             for (const key of Object.keys(response))
             {
                 const node = document.importNode(this.navigationComponentTemplate.content, true);
-                const navigationComponent = document.createElement('navigation-component');
+                const navigationDropdownComponent = document.createElement('navigation-dropdown-component');
                 const input = node.querySelector('input');
                 const label = node.querySelector('label');
                 const span = node.querySelector('span');
                 const componentLinks = node.querySelector('components-wrapper');
                 
-                navigationComponent.dataset.category = key;
+                navigationDropdownComponent.dataset.category = key;
                 input.id = key;
                 label.setAttribute('for', key);
                 span.innerText = key;
 
                 for (let i = 0; i < response[key].length; i++)
                 {
-                    const newComponent = document.createElement('a');
+                    const newComponent = document.createElement('navigation-component');
                     newComponent.innerText = response[key][i].replace(/\-/g, ' ').trim();
-                    newComponent.href = `${ window.location.origin }/${ key }/${ response[key][i] }`;
+                    newComponent.dataset.href = `${ window.location.origin }/${ key }/${ response[key][i] }`;
                     componentLinks.appendChild(newComponent);
                 }
 
-                navigationComponent.append(node);
-                this.appendChild(navigationComponent);
+                navigationDropdownComponent.append(node);
+                this.appendChild(navigationDropdownComponent);
             }
         })
         .catch(error => {

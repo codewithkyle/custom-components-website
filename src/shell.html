@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
-    <title>Web Component Library</title>
-    <meta name="description" content="Browse, demo, and download prebuilt web components based around the Atomic Design methodology.">
+    <title>Web Components Library</title>
+    <meta name="description" content="Browse, demo, and download prebuilt web components based around the Atomic Design methodology and Googles Material Design.">
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,900&display=swap" rel="stylesheet">
 
@@ -14,10 +14,10 @@
         var stylesheets = ['colors', 'reset', 'settings', 'layout'];
     </script>
     <script defer>
-        var modules = [];
+        var modules = ['navigation-manager'];
     </script>
     <script defer>
-        var components = ['component-navigation', 'navigation-component'];
+        var components = ['component-navigation', 'navigation-dropdown-component', 'navigation-component'];
     </script>
 
     <!-- Loading Screen -->
@@ -118,7 +118,8 @@
     </loading-screen>
     <main role="main">
         <component-navigation>
-            <template tag="navigation-component">
+            <a href="/">Web Components Library</a>
+            <template tag="navigation">
                 <input type="checkbox">
                 <label>
                     <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="caret-right" class="svg-inline--fa fa-caret-right fa-w-6" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512"><path fill="currentColor" d="M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z"></path></svg>

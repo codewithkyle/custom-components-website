@@ -1,15 +1,6 @@
-interface Window
-{
-    apiManager: APIManager;
-}
+// declare class NavigationManager
+// {
+//     loadComponent (href:string) : void;
+// }
 
-declare class Notify
-{
-    constructor({ message: string })
-}
-
-interface APIManager
-{
-    submitToken(token:string) : Promise<any>
-}
-declare var apiManager: APIManager;
+declare var navigationManager: NavigationManager;
