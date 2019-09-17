@@ -11,6 +11,14 @@ class NavigationManager
             const oldDemoView = document.body.querySelector('demo-view');
             oldDemoView.innerHTML = newDemoView.innerHTML;
             window.history.pushState({}, null, href);
+
+            const scripts = Array.from(newDemoView.querySelectorAll('script'));
+            for (let i = 0; i < scripts.length; i++)
+            {
+                const newScript = document.createElement('script');
+                newScript.innerHTML = scripts[i].innerHTML;
+                oldDemoView.appendChild(newScript);
+            }
             
             const pageLoadEvent = new CustomEvent('page-load', { 
                 detail: {

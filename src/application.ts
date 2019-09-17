@@ -7,7 +7,10 @@ class Application
     constructor()
     {
         this.run();
+        window.addEventListener('page-load', this.handlePageLoadEvent);
     }
+
+    private handlePageLoadEvent:EventListener = this.run.bind(this);
 
     private getStylesheets() : Promise<any>
     {
