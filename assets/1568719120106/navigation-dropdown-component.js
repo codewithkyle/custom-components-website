@@ -1,4 +1,4 @@
-class NavigationComponent extends HTMLElement {
+class NavigationDropdownComponent extends HTMLElement {
     connectedCallback() {
         if (window.location.pathname.match(this.dataset.category)) {
             const input = this.querySelector('input');
@@ -6,4 +6,4 @@ class NavigationComponent extends HTMLElement {
         }
     }
 }
-customElements.define('navigation-component', NavigationComponent);
+customElements.define('navigation-dropdown-component', NavigationDropdownComponent);
