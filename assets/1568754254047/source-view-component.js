@@ -46,8 +46,10 @@ class SourceViewComponent extends HTMLElement {
                 const sourceCode = document.createElement('code');
                 sourceCode.innerText = html;
                 sourceCode.dataset.view = 'HTML';
+                sourceCode.classList.add('html');
                 this._sourceViews.appendChild(sourceCode);
                 this._tabsContainer.appendChild(tab);
+                hljs.highlightBlock(sourceCode);
             })
                 .catch(error => {
                 console.error(error);
@@ -61,6 +63,7 @@ class SourceViewComponent extends HTMLElement {
                 sourceCode.innerHTML = sass;
                 sourceCode.dataset.view = 'SASS';
                 sourceCode.classList.add('is-hidden');
+                sourceCode.classList.add('sass');
                 this._sourceViews.appendChild(sourceCode);
                 this._tabsContainer.appendChild(tab);
             })
@@ -76,6 +79,7 @@ class SourceViewComponent extends HTMLElement {
                 sourceCode.innerHTML = typescriptData;
                 sourceCode.dataset.view = 'TS';
                 sourceCode.classList.add('is-hidden');
+                sourceCode.classList.add('typescript');
                 this._sourceViews.appendChild(sourceCode);
                 this._tabsContainer.appendChild(tab);
             })

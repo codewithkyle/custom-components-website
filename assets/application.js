@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 class Application {
     constructor() {
         this.handlePageLoadEvent = this.run.bind(this);
+        this.initial = true;
         this.run();
         window.addEventListener('page-load', this.handlePageLoadEvent);
     }
@@ -113,6 +114,10 @@ class Application {
         setTimeout(() => {
             document.documentElement.classList.remove('is-loading');
         }, 300);
+        if (this.initial) {
+            this.initial = false;
+            navigationManager.loadComponent(window.location.href.replace(/\/$/, ''));
+        }
     }
     run() {
         return __awaiter(this, void 0, void 0, function* () {
