@@ -1,6 +1,5 @@
 {
 	"buttons": [
-		"outline-primary",
-		"solid-danger"
+		"solid-primary"
 	]
 }
