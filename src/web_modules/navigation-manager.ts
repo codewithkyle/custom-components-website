@@ -19,10 +19,16 @@ class NavigationManager
                 newScript.innerHTML = scripts[i].innerHTML;
                 oldDemoView.appendChild(newScript);
             }
+
+            let categoryName = window.location.pathname.match(/.*\//)[0];
+            categoryName = categoryName.replace(/\//g, '').trim();
+            const componentName = window.location.pathname.replace(/.*\//, '');
             
             const pageLoadEvent = new CustomEvent('page-load', { 
                 detail: {
-                    href: href
+                    href: href,
+                    category: categoryName,
+                    component: componentName
                 }
             });
             window.dispatchEvent(pageLoadEvent);

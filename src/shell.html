@@ -9,6 +9,7 @@
     <meta name="description" content="Browse, demo, and download prebuilt web components based around the Atomic Design methodology and Googles Material Design.">
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
 
     <script defer>
         var stylesheets = ['colors', 'reset', 'settings', 'layout'];
@@ -17,7 +18,7 @@
         var modules = ['navigation-manager'];
     </script>
     <script defer>
-        var components = ['component-navigation', 'navigation-dropdown-component', 'navigation-component'];
+        var components = ['component-navigation', 'navigation-dropdown-component', 'navigation-component', 'source-view-component', 'tab-component'];
     </script>
 
     <!-- Loading Screen -->
@@ -134,8 +135,10 @@
                     REPLACE_WITH_HTML
                 </demo-wrapper>
             </demo-view>
-            <source-view>
-            </source-view>
+            <source-view-component>
+                <tabs-container></tabs-container>
+                <source-views></source-views>
+            </source-view-component>
         </article>
     </main>
     <script type="module" src="/assets/application.js"></script>
