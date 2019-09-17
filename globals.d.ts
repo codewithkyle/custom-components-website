@@ -5,3 +5,4 @@
 
 declare var navigationManager: NavigationManager;
 declare var sourceManager: SourceManager;
+declare var hljs: any;

@@ -179,14 +179,14 @@ source-view-component
 {
     width: 100%;
     height: 40%;
-    border-top: 2px solid var(--grey-2);    
+    border-top: 1px solid var(--grey-2);    
 
     tabs-container
     {
         display: flex;
         flex-flow: row nowrap;
         width: 100%;
-        border-bottom: 2px solid var(--grey-2);
+        border-bottom: 1px solid var(--grey-2);
         height: 42px;
         background-color: var(--white);
 
@@ -221,13 +221,15 @@ source-view-component
     {
         display: block;
         width: 100%;
-        padding: 1.5rem 2rem;
         height: calc(100% - 42px);
         overflow-y: auto;
         font-family: 'IBM Plex Mono', monospace;
 
         code
         {
+            padding: 2rem;
+            font-size: 0.875rem;
+            border-radius: 0;
             white-space: pre-wrap;
 
             &.is-hidden

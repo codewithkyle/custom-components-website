@@ -4,8 +4,11 @@ declare var components : Array<string>;
 
 class Application
 {
+    private initial : boolean;
+    
     constructor()
     {
+        this.initial = true;
         this.run();
         window.addEventListener('page-load', this.handlePageLoadEvent);
     }
@@ -138,6 +141,12 @@ class Application
         setTimeout(()=>{
             document.documentElement.classList.remove('is-loading');
         }, 300);
+
+        if (this.initial)
+        {
+            this.initial = false;
+            navigationManager.loadComponent(window.location.href.replace(/\/$/, ''));
+        }
     }
 
     private async run()
