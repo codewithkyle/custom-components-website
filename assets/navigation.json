@@ -1,5 +1,8 @@
 {
 	"buttons": [
+		"alt-outline-primary",
+		"outline-primary",
+		"raised-solid-primary",
 		"solid-primary"
 	]
 }

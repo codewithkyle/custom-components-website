@@ -131,31 +131,10 @@
         <article>
             <demo-view>
                 <demo-wrapper>
-                    <!-- <script defer>stylesheets = [...stylesheets];</script> -->
-<!-- <script defer>components = [...components];</script> -->
+                    <script type="module">stylesheets = [...stylesheets, 'buttons/outline-primary'];</script>
+<!-- <script type="module">components = [...components, 'buttons/outline-primary'];</script> -->
 
-<style>
-    h1
-    {
-        display: block;
-        font-size: 1.5rem;
-        font-weight: 500;
-        opacity: 0.87;
-        margin-bottom: 1rem;
-        line-height: 1.618;
-    }
-
-    p
-    {
-        max-width: 620px;
-        display: block;
-        opacity: 0.6;
-        line-height: 1.618;
-    }
-</style>
-
-<h1>Web Components Library</h1>
-<p>Browse, demo, and download prebuilt web components based around the Atomic Design methodology and Googles Material Design. Select a component from the sidebar to get stated.</p>
+<outline-primary role="button" tabindex="0" aria-pressed="false">outline button</outline-primary>
                 </demo-wrapper>
             </demo-view>
             <source-view>
