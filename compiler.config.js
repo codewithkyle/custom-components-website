@@ -28,7 +28,8 @@ class Compiler
             const htmlFiles = await this.getHtmlFiles();
             const homepageHtmlFile = await this.getHomepageHtmlFile();
             await this.updateHomepageHtml(homepageHtmlFile, timestamp);
-            await this.updateHtmlFiles(htmlFiles, timestamp)
+            await this.updateHtmlFiles(htmlFiles, timestamp);
+            await this.buildCategoryDirectories(timestamp);
 
             /** SASS */
             const sassFiles = await this.getSassFiles();
@@ -367,7 +368,23 @@ class Compiler
             for (let i = 0; i < files.length; i++)
             {
                 const filename = files[i].replace(/.*\//g, '');
-                fs.rename(files[i], `build/assets/${ timestamp }/${ filename }`, (error)=>{
+
+                let categoryName = files[i].replace('_compiled/', '');
+                if (categoryName.match(/\//g))
+                {
+                    categoryName = categoryName.match(/.*?(?=\/)/)[0];
+                    
+                    if (categoryName === 'web_modules')
+                    {
+                        categoryName = null;
+                    }
+                }
+                else
+                {
+                    categoryName = null;
+                }
+
+                fs.rename(files[i], `build/assets/${ timestamp }${ (categoryName) ? '/' + categoryName : '' }/${ filename }`, (error)=>{
                     if (error)
                     {
                         reject(error);
@@ -405,6 +422,15 @@ class Compiler
             for (let i = 0; i < files.length; i++)
             {
                 const file = files[i];
+                let categoryName = file.replace('src/', '');
+                if (categoryName.match(/\//g))
+                {
+                    categoryName = categoryName.match(/.*?(?=\/)/)[0];
+                }
+                else
+                {
+                    categoryName = null;
+                }
 
                 sass.render(
                     {
@@ -422,7 +448,7 @@ class Compiler
 
                         if (fileName)
                         {
-                            const newFile = `build/assets/${ timestamp }/${ fileName }.css`;
+                            const newFile = `build/assets/${ timestamp }${ (categoryName) ? '/' + categoryName : '' }/${ fileName }.css`;
                             fs.writeFile(newFile, result.css.toString(), (error)=>{
                                 if (error)
                                 {
@@ -445,6 +471,50 @@ class Compiler
                     }
                 );
             }
+        });
+    }
+
+    buildCategoryDirectories(timestamp)
+    {
+        return new Promise((resolve, reject) => {
+            glob('src/*/', (error, directories) => {
+                if (error)
+                {
+                    reject(error);
+                }
+
+                let built = 0;
+                for (let i = 0; i < directories.length; i++)
+                {
+                    const directory = directories[i];
+                    let categoryName = directory.replace(/(src)|(\/)/g, '').trim();
+                    if (categoryName === 'web_modules')
+                    {
+                        categoryName = null;
+                        built++;
+                        if (built === directories.length)
+                        {
+                            resolve();
+                        }
+                    }
+
+                    if (categoryName)
+                    {
+                        fs.mkdir(`build/assets/${ timestamp }/${ categoryName }`, (error) => {
+                            if (error)
+                            {
+                                reject(error);
+                            }
+
+                            built++;
+                            if (built === directories.length)
+                            {
+                                resolve();
+                            }
+                        });
+                    }
+                }
+            });
         });
     }
 

@@ -57,7 +57,7 @@ class Generator
                         reject(error);
                     }
 
-                    const htmlData = `<script type="module">stylesheets = [...stylesheets, '${ kebabName }'];</script>\n<script type="module">components = [...components, '${ kebabName }'];</script>\n\n<${ kebabName }>${ kebabName }</${ kebabName }>`;
+                    const htmlData = `<script type="module">stylesheets = [...stylesheets, '${ category }/${ kebabName }'];</script>\n<script type="module">components = [...components, '${ category }/${ kebabName }'];</script>\n\n<${ kebabName }>${ kebabName }</${ kebabName }>`;
                     fs.writeFile(`src/${ category }/${ kebabName }/index.html`, htmlData, (error) => {
                         if (error)
                         {
@@ -78,7 +78,24 @@ class Generator
                                     reject(error);
                                 }
 
-                                resolve();
+                                const readmeData = `# ${ kebabName.replace(/\-/g, ' ') } component\n\nA basic description of the web component.\n`;
+                                fs.writeFile(`src/${ category }/${ kebabName }/readme.md`, readmeData, (error) => {
+                                    if (error)
+                                    {
+                                        reject(error);
+                                    }
+
+                                    const today = new Date();
+                                    const changelogData = `# ${ kebabName.replace(/\-/g, ' ') } changelog\n\n## ${ today.getFullYear() }-${ today.getMonth() }-${ today.getDay() }\n\n- created ${ kebabName.replace(/\-/g, ' ') } component\n`;
+                                    fs.writeFile(`src/${ category }/${ kebabName }/changelog.md`, changelogData, (error) => {
+                                        if (error)
+                                        {
+                                            reject(error);
+                                        }
+
+                                        resolve();
+                                    });
+                                });
                             });
                         });
                     });
