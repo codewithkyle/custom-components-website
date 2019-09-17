@@ -9,7 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 class Application {
     constructor() {
+        this.handlePageLoadEvent = this.run.bind(this);
         this.run();
+        window.addEventListener('page-load', this.handlePageLoadEvent);
     }
     getStylesheets() {
         return new Promise((resolve) => {
