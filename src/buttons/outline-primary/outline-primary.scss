@@ -1,3 +1,7 @@
+$primary: #4a99ff;
+$primary-hover-opacity: rgba(74, 153, 255, 0.05);
+$primary-active-opacity: rgba(74, 153, 255, 0.1);
+
 outline-primary
 {
 	display: inline-block;
@@ -17,16 +21,16 @@ outline-primary
 	transition: background-color 75ms ease;
 
 	// Colors
-	border-color: var(--primary);
-	color: var(--primary);
+	border-color: $primary;
+	color: $primary;
 
 	&:hover
 	{
-		background-color: var(--primary-hover-opacity);
+		background-color: $primary-hover-opacity;
 	}
 
 	&:active
 	{
-		background-color: var(--primary-active-opacity);
+		background-color: $primary-active-opacity;
 	}
 }

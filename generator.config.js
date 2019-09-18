@@ -71,7 +71,7 @@ class Generator
                                 reject(error);
                             }
 
-                            const scriptData = `class ${ pascalName } extends HTMLElement\n{\n\tconnectedCallback()\n\t{\n\t\tconsole.log('${ kebabName } component has been connected.');\n\t}\n}\ncustomElements.define('${ kebabName }', ${ pascalName });`;
+                            const scriptData = `class ${ pascalName } extends HTMLElement\n{\n\tconnectedCallback()\n\t{\n\t\tconsole.log('${ kebabName } component has been connected.');\n\t}\n}\n\ncustomElements.define('${ kebabName }', ${ pascalName });\n`;
                             fs.writeFile(`src/${ category }/${ kebabName }/${ kebabName }.ts`, scriptData, (error) => {
                                 if (error)
                                 {

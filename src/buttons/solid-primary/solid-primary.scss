@@ -1,3 +1,8 @@
+$white: #fff;
+$primary: #4a99ff;
+$primary-hover: hsl(214, 100%, 70%);
+$primary-active: hsl(214, 100%, 60%);
+
 solid-primary
 {
 	display: inline-block;
@@ -16,19 +21,19 @@ solid-primary
 	transition: background-color 75ms ease;
 
 	// Colors
-	border-color: var(--primary);
-	background-color: var(--primary);
-	color: var(--white);
+	border-color: $primary;
+	background-color: $primary;
+	color: $white;
 
 	&:hover
 	{
-		background-color: var(--primary-hover);
-		border-color: var(--primary-hover);
+		background-color: $primary-hover;
+		border-color: $primary-hover;
 	}
 
 	&:active
 	{
-		background-color: var(--primary-active);
-		border-color: var(--primary-active);
+		background-color: $primary-active;
+		border-color: $primary-active;
 	}
 }
