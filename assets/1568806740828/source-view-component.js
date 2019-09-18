@@ -25,7 +25,7 @@ class SourceViewComponent extends HTMLElement {
                     });
                 }
                 else {
-                    reject();
+                    reject(request.status);
                 }
             })
                 .catch(error => {
@@ -52,7 +52,9 @@ class SourceViewComponent extends HTMLElement {
                 hljs.highlightBlock(sourceCode);
             })
                 .catch(error => {
-                console.error(error);
+                if (error !== 404) {
+                    console.error(error);
+                }
             });
             yield this.loadRaw(e.detail.category, e.detail.component, e.detail.component, 'scss')
                 .then(sass => {
@@ -68,7 +70,9 @@ class SourceViewComponent extends HTMLElement {
                 this._tabsContainer.appendChild(tab);
             })
                 .catch(error => {
-                console.error(error);
+                if (error !== 404) {
+                    console.error(error);
+                }
             });
             yield this.loadRaw(e.detail.category, e.detail.component, e.detail.component, 'ts')
                 .then(typescriptData => {
@@ -84,7 +88,9 @@ class SourceViewComponent extends HTMLElement {
                 this._tabsContainer.appendChild(tab);
             })
                 .catch(error => {
-                console.error(error);
+                if (error !== 404) {
+                    console.error(error);
+                }
             });
             yield this.loadRaw(e.detail.category, e.detail.component, 'readme', 'md')
                 .then(readmeData => {
@@ -92,14 +98,29 @@ class SourceViewComponent extends HTMLElement {
                 tab.innerText = 'README';
                 tab.dataset.view = 'README';
                 const sourceCode = document.createElement('code');
-                sourceCode.innerHTML = readmeData;
+                sourceCode.innerHTML = markdown.toHTML(readmeData);
                 sourceCode.dataset.view = 'README';
                 sourceCode.classList.add('is-hidden');
+                sourceCode.classList.add('markdown');
                 this._sourceViews.appendChild(sourceCode);
                 this._tabsContainer.appendChild(tab);
             })
                 .catch(error => {
-                console.error(error);
+                if (error === 404) {
+                    const tab = document.createElement('tab-component');
+                    tab.innerText = 'README';
+                    tab.dataset.view = 'README';
+                    const sourceCode = document.createElement('code');
+                    sourceCode.innerHTML = `<p>No readme available. <a href="https://github.com/codewithkyle/custom-components-website/new/master/src/${e.detail.category}/${e.detail.component}" target="_blank">Create one.</a></p>`;
+                    sourceCode.dataset.view = 'README';
+                    sourceCode.classList.add('is-hidden');
+                    sourceCode.classList.add('markdown');
+                    this._sourceViews.appendChild(sourceCode);
+                    this._tabsContainer.appendChild(tab);
+                }
+                else {
+                    console.error(error);
+                }
             });
             yield this.loadRaw(e.detail.category, e.detail.component, 'changelog', 'md')
                 .then(changelogData => {
@@ -107,14 +128,29 @@ class SourceViewComponent extends HTMLElement {
                 tab.innerText = 'CHANGELOG';
                 tab.dataset.view = 'CHANGELOG';
                 const sourceCode = document.createElement('code');
-                sourceCode.innerHTML = changelogData;
+                sourceCode.innerHTML = markdown.toHTML(changelogData);
                 sourceCode.dataset.view = 'CHANGELOG';
                 sourceCode.classList.add('is-hidden');
+                sourceCode.classList.add('markdown');
                 this._sourceViews.appendChild(sourceCode);
                 this._tabsContainer.appendChild(tab);
             })
                 .catch(error => {
-                console.error(error);
+                if (error === 404) {
+                    const tab = document.createElement('tab-component');
+                    tab.innerText = 'CHANGELOG';
+                    tab.dataset.view = 'CHANGELOG';
+                    const sourceCode = document.createElement('code');
+                    sourceCode.innerHTML = `No changelog available. <a href="https://github.com/codewithkyle/custom-components-website/new/master/src/${e.detail.category}/${e.detail.component}" target="_blank">Create one.</a>`;
+                    sourceCode.dataset.view = 'CHANGELOG';
+                    sourceCode.classList.add('is-hidden');
+                    sourceCode.classList.add('markdown');
+                    this._sourceViews.appendChild(sourceCode);
+                    this._tabsContainer.appendChild(tab);
+                }
+                else {
+                    console.error(error);
+                }
             });
         });
     }

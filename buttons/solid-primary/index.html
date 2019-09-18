@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="is-loading" data-cachebust="1568754254047">
+<html lang="en" class="is-loading" data-cachebust="1568806740828">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +15,7 @@
         var stylesheets = ['colors', 'reset', 'settings', 'layout', 'syntax'];
     </script>
     <script defer>
-        var modules = ['navigation-manager', 'source-manager', 'highlight'];
+        var modules = ['navigation-manager', 'source-manager', 'highlight', 'markdown'];
     </script>
     <script defer>
         var components = ['component-navigation', 'navigation-dropdown-component', 'navigation-component', 'source-view-component', 'tab-component'];
@@ -132,7 +132,9 @@
         <article>
             <demo-view>
                 <demo-wrapper>
-                    <script type="module">stylesheets = [...stylesheets, 'buttons/solid-primary'];</script>
+                    <script type="module">
+    stylesheets = [...stylesheets, 'buttons/solid-primary'];
+</script>
 
 <solid-primary role="button" tabindex="0" aria-pressed="false">solid button</solid-primary>
                 </demo-wrapper>
