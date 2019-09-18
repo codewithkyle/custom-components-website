@@ -232,9 +232,102 @@ source-view-component
             border-radius: 0;
             white-space: pre-wrap;
 
+            &[data-view=CHANGELOG],
+            &[data-view=README]
+            {
+                white-space: normal;
+            }
+
             &.is-hidden
             {
                 display: none;
+            }
+
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6,
+            p,
+            ul
+            {
+                opacity: 0.87;
+                display: block;
+                width: 100%;
+                line-height: 1.618;
+                margin-bottom: 1rem;
+
+                &:last-child
+                {
+                    margin-bottom: 0;
+                }
+            }
+
+            p
+            {
+                font-size: 1rem;
+            }
+
+            h1
+            {
+                font-size: 1.75rem;
+                text-transform: capitalize;
+                border-bottom: 1px solid var(--grey-2);
+                padding-bottom: 0.75rem;
+            }
+
+            h2
+            {
+                font-size: 1.5rem;
+            }
+
+            h3
+            {
+                font-size: 1.25rem;
+            }
+
+            h4
+            {
+                font-size: 1rem;
+            }
+
+            h5
+            {
+                font-size: 0.875rem;
+            }
+
+            h6
+            {
+                font-size: 0.75rem;
+            }
+
+            ul
+            {
+                padding-left: 1.25rem;
+
+                li
+                {
+                    display: list-item;
+                    list-style-type: disc;
+                    font-size: 1rem;
+                }
+            }
+
+            a
+            {
+                color: var(--primary);
+                text-decoration: underline;
+
+                &:hover
+                {
+                    color: var(--primary-hover);
+                }
+
+                &:active
+                {
+                    color: var(--primary-active);
+                }
             }
         }
     }

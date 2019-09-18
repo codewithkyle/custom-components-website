@@ -1,5 +1,5 @@
-# solid primary changelog
-
 ## 2019-8-2
 
-- created solid primary component
+### Added
+
+- Adds: created solid primary component
