@@ -141,7 +141,7 @@ class SourceViewComponent extends HTMLElement {
                     tab.innerText = 'CHANGELOG';
                     tab.dataset.view = 'CHANGELOG';
                     const sourceCode = document.createElement('code');
-                    sourceCode.innerHTML = `No changelog available. <a href="https://github.com/codewithkyle/custom-components-website/new/master/src/${e.detail.category}/${e.detail.component}" target="_blank">Create one.</a>`;
+                    sourceCode.innerHTML = `<p>No changelog available. <a href="https://github.com/codewithkyle/custom-components-website/new/master/src/${e.detail.category}/${e.detail.component}" target="_blank">Create one.</a></p>`;
                     sourceCode.dataset.view = 'CHANGELOG';
                     sourceCode.classList.add('is-hidden');
                     sourceCode.classList.add('markdown');

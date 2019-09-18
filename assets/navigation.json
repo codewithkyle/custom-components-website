@@ -4,5 +4,8 @@
 		"outline-primary",
 		"raised-solid-primary",
 		"solid-primary"
+	],
+	"text-inputs": [
+		"outline"
 	]
 }
