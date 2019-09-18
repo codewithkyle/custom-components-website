@@ -29,7 +29,7 @@ class ComponentNavigation extends HTMLElement
                 navigationDropdownComponent.dataset.category = key;
                 input.id = key;
                 label.setAttribute('for', key);
-                span.innerText = key;
+                span.innerText = key.replace(/\-/g, ' ').trim();
 
                 for (let i = 0; i < response[key].length; i++)
                 {
