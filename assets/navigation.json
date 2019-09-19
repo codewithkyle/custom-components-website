@@ -6,6 +6,7 @@
 		"solid-primary"
 	],
 	"grids": [
+		"form",
 		"grid"
 	],
 	"text-inputs": [
