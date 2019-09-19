@@ -77,7 +77,7 @@ class SourceViewComponent extends HTMLElement {
             yield this.loadRaw(e.detail.category, e.detail.component, e.detail.component, 'ts')
                 .then(typescriptData => {
                 const tab = document.createElement('tab-component');
-                tab.innerText = 'TS';
+                tab.innerText = 'TypeScript';
                 tab.dataset.view = 'TS';
                 const sourceCode = document.createElement('code');
                 sourceCode.innerHTML = typescriptData;
