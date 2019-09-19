@@ -133,10 +133,16 @@
             <demo-view>
                 <demo-wrapper>
                     <script type="module">
-    stylesheets = [...stylesheets, 'buttons/solid-primary'];
+	stylesheets = [...stylesheets, 'text-inputs/solid'];
+</script>
+<script type="module">
+	components = [...components, 'text-inputs/solid'];
 </script>
 
-<solid-primary role="button" tabindex="0" aria-pressed="false">solid button</solid-primary>
+<solid-input-component>
+	<input id="solid-input-component" type="text" required />
+	<label for="solid-input-component">Username</label>
+</solid-input-component>
                 </demo-wrapper>
             </demo-view>
             <source-view-component>

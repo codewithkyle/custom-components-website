@@ -6,6 +6,7 @@
 		"solid-primary"
 	],
 	"text-inputs": [
-		"outline"
+		"outline",
+		"solid"
 	]
 }
