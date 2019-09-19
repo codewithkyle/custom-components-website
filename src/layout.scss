@@ -235,6 +235,13 @@ source-view-component
             &[data-view=README]
             {
                 white-space: normal;
+
+                code
+                {
+                    background-color: var(--grey-1);
+                    border-radius: 0.25rem;
+                    padding: 1.5rem 2rem;
+                }
             }
 
             &.is-hidden
