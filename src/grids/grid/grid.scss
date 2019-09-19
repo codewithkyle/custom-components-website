@@ -1,11 +1,13 @@
 $medium-breakpoint: 768px;
 $large-breakpoint: 1024px;
 $xlarge-breakpoint: 1280px;
+$gap: 1rem;
+$wide-gap: 2rem;
 
 css-grid
 {
 	display: grid;
-	gap: 1rem;
+	gap: $gap;
 	grid-template-columns: minmax(1px, 1fr);
 
 	@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none)
@@ -23,11 +25,12 @@ css-grid
 		}
 	}
 
-	// Demo CSS
+	// Begin Demo CSS
 	width: 640px;
 	max-width: 100%;
 	margin-bottom: 1rem;
 	grid-column{ background-color: var(--primary);width:100%;height:3rem; }
+	// End Demo CSS
 
 	// Gap Controls
 	&.-no-gap
@@ -45,7 +48,7 @@ css-grid
 
 	&.-wide-gap
 	{
-		gap: 2rem;
+		gap: $wide-gap;
 
 		@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none)
 		{
@@ -61,7 +64,7 @@ css-grid
 		}
 	}
 
-	// Layout Controls
+	// Column Controls
 	&[columns~="2"]
 	{
 		@media (min-width: $medium-breakpoint)
