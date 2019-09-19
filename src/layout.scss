@@ -201,12 +201,20 @@ source-view-component
             padding: 0 1rem;
             cursor: pointer;
             background-color: transparent;
+            opacity: 0;
+            animation: fadeIn 300ms ease-in forwards;
             transition: all 75ms ease-in-out;
 
             &:hover
             {
                 color: var(--primary);
                 background-color: var(--primary-hover-opacity);
+            }
+
+            &:active
+            {
+                color: var(--primary);
+                background-color: var(--primary-active-opacity);
             }
 
             &.is-active
@@ -336,5 +344,17 @@ source-view-component
                 }
             }
         }
+    }
+}
+
+@keyframes fadeIn
+{
+    from
+    {
+        opacity: 0;
+    }
+    to
+    {
+        opacity: 1;
     }
 }
