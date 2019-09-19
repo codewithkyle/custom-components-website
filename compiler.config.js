@@ -440,7 +440,12 @@ class Compiler
                     (error, result) => {
                         if (error)
                         {
-                            reject(`${ error.message } at line ${ error.line } ${ error.file }`);
+                            reject(`\n\n${ error.message } at line ${ error.line } ${ error.file }\n\n`);
+                        }
+
+                        if (result === null)
+                        {
+                            return;
                         }
 
                         let fileName = result.stats.entry.replace(/.*\//g, '').toLowerCase();

@@ -2,4 +2,4 @@
 
 ### Added
 
-- Adds: outline component
+- Adds: outline input component
