@@ -5,6 +5,9 @@
 		"raised-solid-primary",
 		"solid-primary"
 	],
+	"grids": [
+		"grid"
+	],
 	"text-inputs": [
 		"outline",
 		"solid"

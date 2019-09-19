@@ -133,10 +133,31 @@
             <demo-view>
                 <demo-wrapper>
                     <script type="module">
-    stylesheets = [...stylesheets, 'buttons/outline-primary'];
+	stylesheets = [...stylesheets, 'grids/grid'];
 </script>
 
-<outline-primary role="button" tabindex="0" aria-pressed="false">outline button</outline-primary>
+<css-grid>
+	<grid-column></grid-column>
+	<grid-column></grid-column>
+	<grid-column></grid-column>
+</css-grid>
+<css-grid columns="3">
+	<grid-column></grid-column>
+	<grid-column></grid-column>
+	<grid-column></grid-column>
+</css-grid>
+<css-grid columns="2 4">
+	<grid-column></grid-column>
+	<grid-column></grid-column>
+	<grid-column></grid-column>
+	<grid-column></grid-column>
+</css-grid>
+<css-grid columns="4">
+	<grid-column></grid-column>
+	<grid-column></grid-column>
+	<grid-column></grid-column>
+	<grid-column></grid-column>
+</css-grid>
                 </demo-wrapper>
             </demo-view>
             <source-view-component>
