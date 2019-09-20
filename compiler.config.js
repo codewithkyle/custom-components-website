@@ -33,7 +33,9 @@ class Compiler
 
             /** SASS */
             const sassFiles = await this.getSassFiles();
-            await this.compileSass(sassFiles, timestamp);
+            const splitSassFiles = await this.splitSassFiles(sassFiles);
+            await this.compileSass(splitSassFiles.verifiedFiles, timestamp);
+            await this.compileDemoSass(splitSassFiles.demoFiles, timestamp);
 
             /** Web Components */
             const componentFiles = await this.getComponentFiles();
@@ -414,6 +416,86 @@ class Compiler
         });
     }
 
+    compileDemoSass(files, timestamp)
+    {
+        return new Promise((resolve, reject) => {
+            let finished = 0;
+            for (let i = 0; i < files.length; i++)
+            {
+                const file = files[i];
+                let categoryName = file.replace('src/', '');
+                if (categoryName.match(/\//g))
+                {
+                    categoryName = categoryName.match(/.*?(?=\/)/)[0];
+                }
+                else
+                {
+                    categoryName = null;
+                }
+
+                sass.render(
+                    {
+                        file: file,
+                        outputStyle: 'compressed'
+                    },
+                    (error, result) => {
+                        if (error)
+                        {
+                            reject(`\n\n${ error.message } at line ${ error.line } ${ error.file }\n\n`);
+                        }
+
+                        if (result === null)
+                        {
+                            return;
+                        }
+
+                        const fileName = file.replace('/demo.scss', '').replace(/.*\//g, '').trim().toLowerCase();
+                        if (fileName)
+                        {
+                            const compiledCssFilePath = `build/assets/${ timestamp }${ (categoryName) ? '/' + categoryName : '' }/${ fileName }.css`;
+
+                            fs.promises.access(compiledCssFilePath)
+                            .then(() => {
+                                
+                                fs.readFile(compiledCssFilePath, (error, buffer) => {
+                                    if (error)
+                                    {
+                                        reject(error);
+                                    }
+
+                                    let compiledCssData = buffer.toString();
+                                    compiledCssData += `\n/** ${ file }  */\n${ result.css.toString() }`;
+
+                                    fs.writeFile(compiledCssFilePath, compiledCssData, (error)=>{
+                                        if (error)
+                                        {
+                                            reject('Something went wrong saving the file' + error);
+                                        }
+    
+                                        console.log(`${ compiledCssFilePath } [updated]`);
+                                        finished++;
+                                        if (finished === files.length)
+                                        {
+                                            resolve();
+                                        }
+                                    });
+
+                                });
+                            })
+                            .catch(() => {
+                                reject(`Compiled SASS file ${ fileName } is missing at ${ compiledCssFilePath }`);
+                            });
+                        }
+                        else
+                        {
+                            reject('Something went wrong with the file name of ' + result.stats.entry);
+                        }
+                    }
+                );
+            }
+        });
+    }
+
     compileSass(files, timestamp)
     {
         return new Promise((resolve, reject)=>{
@@ -453,14 +535,16 @@ class Compiler
 
                         if (fileName)
                         {
-                            const newFile = `build/assets/${ timestamp }${ (categoryName) ? '/' + categoryName : '' }/${ fileName }.css`;
-                            fs.writeFile(newFile, result.css.toString(), (error)=>{
+                            const compiledCssFilePath = `build/assets/${ timestamp }${ (categoryName) ? '/' + categoryName : '' }/${ fileName }.css`;
+                            let compiledCssData = `/** ${ file }  */\n${ result.css.toString() }`;
+
+                            fs.writeFile(compiledCssFilePath, compiledCssData, (error)=>{
                                 if (error)
                                 {
                                     reject('Something went wrong saving the file' + error);
                                 }
 
-                                console.log(`${ file } [compiled]`);
+                                console.log(`${ compiledCssFilePath } [compiled]`);
                                 compiled++;
 
                                 if (compiled === files.length)
@@ -520,6 +604,30 @@ class Compiler
                     }
                 }
             });
+        });
+    }
+
+    splitSassFiles(files)
+    {
+        return new Promise((resolve) => {
+            const response = {
+                verifiedFiles: [],
+                demoFiles: []
+            };
+
+            for (let i = 0; i < files.length; i++)
+            {
+                if (files[i].match(/(demo\.scss)$/gi))
+                {
+                    response.demoFiles.push(files[i]);
+                }
+                else
+                {
+                    response.verifiedFiles.push(files[i]);
+                }
+            }
+
+            resolve(response);
         });
     }
 

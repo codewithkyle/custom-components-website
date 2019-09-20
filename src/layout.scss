@@ -167,6 +167,8 @@ demo-view
     justify-content: center;
     align-items: center;
     flex-flow: column wrap;
+    overflow: auto;
+    padding: 2rem;
 
     demo-wrapper
     {
