@@ -25,10 +25,16 @@ class Compiler
             await this.moveWorker();
             const timestamp = Date.now();
             await this.createCachebustDirectory(timestamp);
+
+            /** HTML */
             const htmlFiles = await this.getHtmlFiles();
+            const demoHtmlFiles = await this.getDemoHtmlFiles();
             const homepageHtmlFile = await this.getHomepageHtmlFile();
             await this.updateHomepageHtml(homepageHtmlFile, timestamp);
             await this.updateHtmlFiles(htmlFiles, timestamp);
+            await this.injectDemoHtmlFiles(demoHtmlFiles, timestamp);
+
+            /** Categories */
             await this.buildCategoryDirectories(timestamp);
 
             /** SASS */
@@ -645,6 +651,76 @@ class Compiler
         });
     }
 
+    injectDemoHtmlFiles(htmlFiles, timestamp)
+    {
+        return new Promise((resolve, reject) => {
+            if (htmlFiles.length)
+            {
+                resolve();
+            }
+
+            let injected = 0;
+            for (let i = 0; i < htmlFiles.length; i++)
+            {
+                const file = htmlFiles[i];
+                let categoryName = file.replace('src/', '');
+                if (categoryName.match(/\//g))
+                {
+                    categoryName = categoryName.match(/.*?(?=\/)/)[0];
+                }
+                else
+                {
+                    categoryName = null;
+                }
+
+                const componentName = file.replace('/demo.html', '').replace(/.*\//g, '').trim().toLowerCase();
+                if (componentName)
+                {
+                    const htmlFilePath = `build/${ (categoryName) ? categoryName + '/' : '' }${ componentName }/index.html`;
+
+                    fs.promises.access(htmlFilePath)
+                    .then(() => {
+                        fs.readFile(htmlFilePath, (error, buffer) => {
+                            if (error)
+                            {
+                                reject(error);
+                            }
+
+                            let htmlData = buffer.toString();
+                            fs.readFile(file, (error, demoBuffer) => {
+                                if (error)
+                                {
+                                    reject(error);
+                                }
+
+                                htmlData = htmlData.replace('<!-- Demo HTML -->', demoBuffer.toString());
+                                fs.writeFile(htmlFilePath, htmlData, (error)=>{
+                                    if (error)
+                                    {
+                                        reject('Something went wrong saving the file' + error);
+                                    }
+    
+                                    injected++;
+                                    if (injected === htmlFiles.length)
+                                    {
+                                        resolve();
+                                    }
+                                });
+                            });
+                        });
+                    })
+                    .catch(() => {
+                        reject(`${ componentName } is missing at ${ htmlFilePath }`);
+                    });
+                }
+                else
+                {
+                    reject(`Something went wrong with the file name of ${ componentName }`);
+                }
+            }
+        });
+    }
+
     updateHtmlFiles(htmlFiles, timestamp)
     {
         return new Promise((resolve, reject)=>{
@@ -775,6 +851,20 @@ class Compiler
             })
             .catch(error => {
                 reject(error);
+            });
+        });
+    }
+
+    getDemoHtmlFiles()
+    {
+        return new Promise((resolve, reject) => {
+            glob('src/**/demo.html', (error, files) => {
+                if (error)
+                {
+                    reject(error);
+                }
+
+                resolve(files);
             });
         });
     }
