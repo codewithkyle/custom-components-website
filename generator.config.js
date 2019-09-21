@@ -93,7 +93,15 @@ class Generator
                                             reject(error);
                                         }
 
-                                        resolve();
+                                        const dataModelData = `{\n\t"sample": "hello world"\n}`;
+                                        fs.writeFile(`src/${ category }/${ kebabName }/data.json`, dataModelData, (error) => {
+                                            if (error)
+                                            {
+                                                reject(error);
+                                            }
+
+                                            resolve();
+                                        });
                                     });
                                 });
                             });

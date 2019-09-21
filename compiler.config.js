@@ -70,6 +70,24 @@ class Compiler
         }
     }
 
+    removeCompiledDirectory()
+    {
+        return new Promise((resolve, reject) => {
+            fs.promises.access('_compiled')
+            .then(() => {
+                fs.rmdir('_compiled', { recursive: true }, (error) => {
+                    if (error)
+                    {
+                        reject(error);
+                    }
+
+                    resolve();
+                });
+            })
+            .catch(() => { resolve(); });
+        });
+    }
+
     moveCNAME()
     {
         return new Promise((resolve, reject) => {
@@ -1054,24 +1072,6 @@ class Compiler
 
                 resolve();
             });
-        });
-    }
-
-    removeCompiledDirectory()
-    {
-        return new Promise((resolve, reject) => {
-            fs.promises.access('_compiled')
-            .then(() => {
-                fs.rmdir('_compiled', { recursive: true }, (error) => {
-                    if (error)
-                    {
-                        reject(error);
-                    }
-
-                    resolve();
-                });
-            })
-            .catch(() => { resolve(); });
         });
     }
 }
