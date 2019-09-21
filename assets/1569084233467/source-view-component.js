@@ -37,11 +37,34 @@ class SourceViewComponent extends HTMLElement {
         return __awaiter(this, void 0, void 0, function* () {
             this._tabsContainer.innerHTML = '';
             this._sourceViews.innerHTML = '';
+            let hasDataModel = false;
+            yield this.loadRaw(e.detail.category, e.detail.component, 'data', 'json')
+                .then(html => {
+                hasDataModel = true;
+                const tab = document.createElement('tab-component');
+                tab.innerText = 'DATA MODEL';
+                tab.classList.add('is-active');
+                tab.dataset.view = 'JSON';
+                const sourceCode = document.createElement('code');
+                sourceCode.innerText = html;
+                sourceCode.dataset.view = 'JSON';
+                sourceCode.classList.add('json');
+                this._sourceViews.appendChild(sourceCode);
+                this._tabsContainer.appendChild(tab);
+                hljs.highlightBlock(sourceCode);
+            })
+                .catch(error => {
+                if (error !== 404) {
+                    console.error(error);
+                }
+            });
             yield this.loadRaw(e.detail.category, e.detail.component, 'index', 'html')
                 .then(html => {
                 const tab = document.createElement('tab-component');
                 tab.innerText = 'HTML';
-                tab.classList.add('is-active');
+                if (!hasDataModel) {
+                    tab.classList.add('is-active');
+                }
                 tab.dataset.view = 'HTML';
                 const sourceCode = document.createElement('code');
                 sourceCode.innerText = html;
