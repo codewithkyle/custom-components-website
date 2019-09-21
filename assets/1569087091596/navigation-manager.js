@@ -1,12 +1,13 @@
 class NavigationManager {
     loadComponent(href) {
+        const oldDemoView = document.body.querySelector('demo-view');
+        oldDemoView.classList.add('is-loading');
         fetch(href)
             .then(request => request.text())
             .then(response => {
             const tempDocument = document.implementation.createHTMLDocument('temp-document');
             tempDocument.body.innerHTML = response;
             const newDemoView = tempDocument.body.querySelector('demo-view');
-            const oldDemoView = document.body.querySelector('demo-view');
             oldDemoView.innerHTML = newDemoView.innerHTML;
             window.history.pushState({}, null, href);
             const scripts = Array.from(newDemoView.querySelectorAll('script'));
