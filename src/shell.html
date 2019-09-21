@@ -52,7 +52,7 @@
             opacity: 0.87;
         }
 
-        loading-screen circle-loader
+        circle-loader
         {
             display: block;
             height: 64px;
@@ -130,7 +130,8 @@
             </template>
         </component-navigation>
         <article>
-            <demo-view>
+            <demo-view class="is-loading">
+                <circle-loader></circle-loader>
                 <demo-wrapper>
                     <!-- Demo HTML -->
                     REPLACE_WITH_HTML

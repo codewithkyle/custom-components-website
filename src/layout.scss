@@ -170,10 +170,31 @@ demo-view
     overflow: auto;
     padding: 2rem;
 
+    circle-loader
+    {
+        display: none;
+        border-top-color: var(--primary);
+    }
+
+    &.is-loading
+    {
+        circle-loader
+        {
+            display: inline-block;
+        }
+
+        demo-wrapper
+        {
+            display: none;
+            animation: none;
+        }
+    }
+
     demo-wrapper
     {
         margin: 0;
         display: inline-block;
+        animation: fadeIn 150ms ease-in forwards;
     }
 }
 

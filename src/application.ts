@@ -5,10 +5,12 @@ declare var components : Array<string>;
 class Application
 {
     private initial : boolean;
+    private _demoView : HTMLElement;
     
     constructor()
     {
         this.initial = true;
+        this._demoView = document.body.querySelector('demo-view');
         this.run();
         window.addEventListener('page-load', this.handlePageLoadEvent);
     }
@@ -49,6 +51,14 @@ class Application
                         }
                     });
                 }
+                else
+                {
+                    count++;
+                    if (count === requiredCount)
+                    {
+                        resolve();
+                    }
+                }
 
                 stylesheets.splice(0, 1);
             }
@@ -88,6 +98,14 @@ class Application
                             resolve();
                         }
                     });
+                }
+                else
+                {
+                    count++;
+                    if (count === requiredCount)
+                    {
+                        resolve();
+                    }
                 }
 
                 modules.splice(0, 1);
@@ -130,6 +148,14 @@ class Application
                         }
                     });
                 }
+                else
+                {
+                    count++;
+                    if (count === requiredCount)
+                    {
+                        resolve();
+                    }
+                }
 
                 components.splice(0, 1);
             }
@@ -140,6 +166,7 @@ class Application
     {
         setTimeout(()=>{
             document.documentElement.classList.remove('is-loading');
+            this._demoView.classList.remove('is-loading');
         }, 300);
 
         if (this.initial)
