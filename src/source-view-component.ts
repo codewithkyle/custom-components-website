@@ -70,16 +70,18 @@ class SourceViewComponent extends HTMLElement
         .then(html => {
             const tab = document.createElement('tab-component');
             tab.innerText = 'HTML';
-            if (!hasDataModel)
-            {
-                tab.classList.add('is-active');
-            }
             tab.dataset.view = 'HTML';
 
             const sourceCode = document.createElement('code');
             sourceCode.innerText = html;
             sourceCode.dataset.view = 'HTML';
             sourceCode.classList.add('html');
+
+            if (!hasDataModel)
+            {
+                tab.classList.add('is-active');
+                sourceCode.classList.add('is-hidden');
+            }
 
             this._sourceViews.appendChild(sourceCode);
             this._tabsContainer.appendChild(tab);
