@@ -654,7 +654,7 @@ class Compiler
     injectDemoHtmlFiles(htmlFiles, timestamp)
     {
         return new Promise((resolve, reject) => {
-            if (htmlFiles.length)
+            if (htmlFiles.length === 0)
             {
                 resolve();
             }
