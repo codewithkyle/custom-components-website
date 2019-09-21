@@ -32,7 +32,7 @@ class Compiler
             const homepageHtmlFile = await this.getHomepageHtmlFile();
             await this.updateHomepageHtml(homepageHtmlFile, timestamp);
             await this.updateHtmlFiles(htmlFiles, timestamp);
-            await this.injectDemoHtmlFiles(demoHtmlFiles, timestamp);
+            await this.injectDemoHtmlFiles(demoHtmlFiles);
 
             /** Categories */
             await this.buildCategoryDirectories(timestamp);
@@ -45,7 +45,8 @@ class Compiler
 
             /** Web Components */
             const componentFiles = await this.getComponentFiles();
-            await this.moveComponents(componentFiles, timestamp);
+            await this.moveComponents(componentFiles.componentFiles, timestamp);
+            await this.injectDemoScripts(componentFiles.demoFiles, timestamp);
 
             /** NPM Package Bundling */
             await this.removeBundleDirectory();
@@ -61,6 +62,7 @@ class Compiler
             await this.generateNavigationFile(navigation);
             
             await this.moveCNAME();
+            await this.removeCompiledDirectory();
         }
         catch (error)
         {
@@ -363,6 +365,68 @@ class Compiler
         });
     }
 
+    injectDemoScripts(files, timestamp)
+    {
+        return new Promise((resolve, reject) => {
+            if (files.length === 0)
+            {
+                resolve();
+            }
+
+            let injected = 0;
+            for (let i = 0; i < files.length; i++)
+            {
+                const file = files[i].replace(/(\_compiled\/)|(\/demo\.js)/g, '').trim().toLowerCase();
+                const categoryName = file.replace(/\/.*/g, '');
+                const componentName = file.replace(/.*\//g, '');
+
+                if (componentName)
+                {
+                    const scriptFilePath = `build/assets/${ timestamp }/${ (categoryName) ? categoryName + '/' : '' }${ componentName }.js`;
+                    fs.promises.access(scriptFilePath)
+                    .then(() => {
+                        fs.readFile(scriptFilePath, (error, buffer) => {
+                            if (error)
+                            {
+                                reject(error);
+                            }
+
+                            let scriptData = buffer.toString();
+                            fs.readFile(files[i], (error, demoBuffer) => {
+                                if (error)
+                                {
+                                    reject(error);
+                                }
+
+                                scriptData += `\n/** Demo JavaScript from ${ files[i].replace('_compiled', 'src') } */\n${ demoBuffer.toString() }`;
+
+                                fs.writeFile(scriptFilePath, scriptData, (error) => {
+                                    if (error)
+                                    {
+                                        reject(error);
+                                    }
+
+                                    injected++;
+                                    if (injected === files.length)
+                                    {
+                                        resolve();
+                                    }
+                                });
+                            });
+                        });
+                    })
+                    .catch(() => {
+                        reject(`Couldn't find file at ${ scriptFilePath }`);
+                    });
+                }
+                else
+                {
+                    reject(`Failed to find component name for ${ files[i] }`);
+                }
+            }
+        });
+    }
+
     moveComponents(files, timestamp)
     {
         return new Promise((resolve, reject)=>{
@@ -411,13 +475,29 @@ class Compiler
     getComponentFiles()
     {
         return new Promise((resolve, reject)=>{
+            const foundFiles = {
+                componentFiles: [],
+                demoFiles: []
+            };
             glob('_compiled/**/*.js', (error, files)=>{
                 if (error)
                 {
                     reject(error);
                 }
 
-                resolve(files);
+                for (let i = 0; i < files.length; i++)
+                {
+                    if (files[i].match(/(demo\.js)$/gi))
+                    {
+                        foundFiles.demoFiles.push(files[i]);
+                    }
+                    else
+                    {
+                        foundFiles.componentFiles.push(files[i]);
+                    }
+                }
+
+                resolve(foundFiles);
             });
         });
     }
@@ -651,7 +731,7 @@ class Compiler
         });
     }
 
-    injectDemoHtmlFiles(htmlFiles, timestamp)
+    injectDemoHtmlFiles(htmlFiles)
     {
         return new Promise((resolve, reject) => {
             if (htmlFiles.length === 0)
@@ -974,6 +1054,24 @@ class Compiler
 
                 resolve();
             });
+        });
+    }
+
+    removeCompiledDirectory()
+    {
+        return new Promise((resolve, reject) => {
+            fs.promises.access('_compiled')
+            .then(() => {
+                fs.rmdir('_compiled', { recursive: true }, (error) => {
+                    if (error)
+                    {
+                        reject(error);
+                    }
+
+                    resolve();
+                });
+            })
+            .catch(() => { resolve(); });
         });
     }
 }
