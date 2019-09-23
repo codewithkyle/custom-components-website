@@ -65,7 +65,7 @@ class Compiler
             /** Downloads */
             const componentDirectories = await this.getComponentDirectories();
             const downloads = await this.cleanDownloads(componentDirectories);
-            await this.purgeDownloads(downloads);
+            await this.generatedDownloadsDirectory(downloads);
             await this.generateDownloads(downloads);
             await this.cleanupTempDirectories(downloads);
             
@@ -197,7 +197,7 @@ class Compiler
                             }
                         });
                     }).catch(() => {});
-                    const output = fs.createWriteStream(`src/${ category }/${ component }/${ component }.zip`);
+                    const output = fs.createWriteStream(`build/assets/downloads/${ category }/${ component }.zip`);
                     const archive = archiver('zip', { zlib: { level: 9 } });
                     output.on('close', () => {
                         generated++;
@@ -210,45 +210,6 @@ class Compiler
                     archive.directory(`src/${ category }/${ component }/temp`, `${ component }`);
                     archive.finalize();
                 })();
-            }
-        });
-    }
-
-    purgeDownloads(downloads)
-    {
-        return new Promise((resolve, reject) => {
-            if (downloads.length === 0)
-            {
-                resolve();
-            }
-
-            let removed = 0;
-            for (let i = 0; i < downloads.length; i++)
-            {
-                const category = downloads[i].category;
-                const component = downloads[i].component;
-                fs.promises.access(`src/${ category }/${ component }/${ component }.zip`)
-                .then(() => {
-                    fs.unlink(`src/${ category }/${ component }/${ component }.zip`, (error) => {
-                        if (error)
-                        {
-                            reject(error);
-                        }
-
-                        removed++;
-                        if (removed === downloads.length)
-                        {
-                            resolve();
-                        }
-                    });
-                })
-                .catch(() =>{
-                    removed++;
-                    if (removed === downloads.length)
-                    {
-                        resolve();
-                    }
-                });
             }
         });
     }
@@ -275,6 +236,59 @@ class Compiler
             }
 
             resolve(downloads);
+        });
+    }
+
+    generatedDownloadsDirectory(downloads)
+    {
+        return new Promise((resolve, reject) => {
+            fs.mkdir('build/assets/downloads', (error) => {
+                if (error)
+                {
+                    reject(error);
+                }
+
+                if (downloads.length === 0)
+                {
+                    resolve();
+                }
+
+                let generated = 0;
+                const uniqueCategories = [];
+                for (let i = 0; i < downloads.length; i++)
+                {
+                    const category = downloads[i].category;
+                    let isUnique = true;
+                    for (let k = 0; k < uniqueCategories.length; k++)
+                    {
+                        if (category === uniqueCategories[k])
+                        {
+                            isUnique = false;
+                        }
+                    }
+
+                    if (isUnique)
+                    {
+                        uniqueCategories.push(category);
+                    }
+                }
+
+                for (let i = 0; i < uniqueCategories.length; i++)
+                {
+                    fs.mkdir(`build/assets/downloads/${ uniqueCategories[i] }`, (error) => {
+                        if (error)
+                        {
+                            reject(error);
+                        }
+
+                        generated++;
+                        if (generated === uniqueCategories.length)
+                        {
+                            resolve();
+                        }
+                    });
+                }
+            });
         });
     }
 
