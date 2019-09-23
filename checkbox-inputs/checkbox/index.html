@@ -139,30 +139,20 @@
                 <demo-wrapper>
                     <!-- Demo HTML -->
                     <script type="module">
-	stylesheets = [...stylesheets, 'grids/form'];
+	stylesheets = [...stylesheets, 'checkbox-inputs/checkbox'];
 </script>
 
-<form class="form-grid" novalidate onsubmit="return false;">
-	<form-row>
-		<h2>Form Grid Example</h2>
-	</form-row>
-	<form-row>
-		<input type="email" value="full width">
-	</form-row>
-	<form-row columns="2">
-		<input type="text" value="two column">
-		<input type="text" value="split">
-	</form-row>
-	<form-row columns="3">
-		<input type="text" value="three">
-		<input type="text" value="column">
-		<input type="text" value="split">
-	</form-row>
-	<form-row flexbox="space-between">
-		<a href="#" onclick="return false;">link to something</a>
-		<button type="submit">Submit</button>
-	</form-row>
-</form>
+<checkbox-component>
+	<input type="checkbox" id="checkbox-component" />
+	<label for="checkbox-component">
+		<checkbox-icon>
+			<svg viewBox="0 0 24 24">
+				<path stroke="currentColor" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59"></path>
+			</svg>
+		</checkbox-icon>
+		<span>Click to check the box</span>
+	</label>
+</checkbox-component>
                 </demo-wrapper>
             </demo-view>
             <source-view-component>
