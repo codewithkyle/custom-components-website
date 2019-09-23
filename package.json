@@ -18,6 +18,7 @@
     "create": "node ./generator.config.js"
   },
   "devDependencies": {
+    "archiver": "^3.1.1",
     "chalk": "^2.4.2",
     "clear": "^0.1.0",
     "dotenv": "^8.1.0",

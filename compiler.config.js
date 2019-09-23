@@ -4,6 +4,7 @@ const sass = require('node-sass');
 const rollup = require('rollup');
 const rollupPluginNodeResolve = require('rollup-plugin-node-resolve');
 const rollupPluginCommonjs = require('rollup-plugin-commonjs');
+const archiver = require('archiver');
 
 const projectPackage = require('./package.json');
 
@@ -60,6 +61,13 @@ class Compiler
             const components = await this.getComponents();
             const navigation = await this.buildNavigation(categories, components);
             await this.generateNavigationFile(navigation);
+
+            /** Downloads */
+            const componentDirectories = await this.getComponentDirectories();
+            const downloads = await this.cleanDownloads(componentDirectories);
+            await this.purgeDownloads(downloads);
+            await this.generateDownloads(downloads);
+            await this.cleanupTempDirectories(downloads);
             
             await this.moveCNAME();
             await this.removeCompiledDirectory();
@@ -104,6 +112,182 @@ class Compiler
             })
             .catch(() => {
                 resolve();
+            });
+        });
+    }
+
+    cleanupTempDirectories(downloads)
+    {
+        return new Promise((resolve, reject) => {
+            if (downloads.length === 0)
+            {
+                resolve();
+            }
+
+            let removed = 0;
+            for (let i = 0; i < downloads.length; i++)
+            {
+                const category = downloads[i].category;
+                const component = downloads[i].component;
+                fs.exists(`src/${ category }/${ component }/temp`, (exists) => {
+                    if (exists)
+                    {
+                        fs.rmdir(`src/${ category }/${ component }/temp`, { recursive: true }, (error) => {
+                            if (error)
+                            {
+                                reject(error);
+                            }
+    
+                            removed++;
+                            if (removed === downloads.length)
+                            {
+                                resolve();
+                            }
+                        });
+                    }
+                    else
+                    {
+                        removed++;
+                        if (removed === downloads.length)
+                        {
+                            resolve();
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    generateDownloads(downloads)
+    {
+        return new Promise((resolve, reject) => {
+            if (downloads.length === 0)
+            {
+                resolve();
+            }
+            let generated = 0;
+            for (let i = 0; i < downloads.length; i++)
+            {
+                const category = downloads[i].category;
+                const component = downloads[i].component;
+
+                (async () => {
+                    await fs.mkdir(`src/${ category }/${ component }/temp`, (error) => { if (error) { reject(error); } });
+                    await fs.promises.access(`src/${ category }/${ component }/index.html`).then(() => {
+                        fs.copyFileSync(`src/${ category }/${ component }/index.html`, `src/${ category }/${ component }/temp/index.html`, (error) => {
+                            if (error)
+                            {
+                                reject(error);
+                            }
+                        });
+                    }).catch(() => {});
+                    await fs.promises.access(`src/${ category }/${ component }/${ component }.scss`).then(() => {
+                        fs.copyFileSync(`src/${ category }/${ component }/${ component }.scss`, `src/${ category }/${ component }/temp/${ component }.scss`, (error) => {
+                            if (error)
+                            {
+                                reject(error);
+                            }
+                        });
+                    }).catch(() => {});
+                    await fs.promises.access(`src/${ category }/${ component }/${ component }.ts`).then(() => {
+                        fs.copyFileSync(`src/${ category }/${ component }/${ component }.ts`, `src/${ category }/${ component }/temp/${ component }.ts`, (error) => {
+                            if (error)
+                            {
+                                reject(error);
+                            }
+                        });
+                    }).catch(() => {});
+                    const output = fs.createWriteStream(`src/${ category }/${ component }/${ component }.zip`);
+                    const archive = archiver('zip', { zlib: { level: 9 } });
+                    output.on('close', () => {
+                        generated++;
+                        if (generated === downloads.length)
+                        {
+                            resolve();
+                        }
+                    });
+                    archive.pipe(output);
+                    archive.directory(`src/${ category }/${ component }/temp`, `${ component }`);
+                    archive.finalize();
+                })();
+            }
+        });
+    }
+
+    purgeDownloads(downloads)
+    {
+        return new Promise((resolve, reject) => {
+            if (downloads.length === 0)
+            {
+                resolve();
+            }
+
+            let removed = 0;
+            for (let i = 0; i < downloads.length; i++)
+            {
+                const category = downloads[i].category;
+                const component = downloads[i].component;
+                fs.promises.access(`src/${ category }/${ component }/${ component }.zip`)
+                .then(() => {
+                    fs.unlink(`src/${ category }/${ component }/${ component }.zip`, (error) => {
+                        if (error)
+                        {
+                            reject(error);
+                        }
+
+                        removed++;
+                        if (removed === downloads.length)
+                        {
+                            resolve();
+                        }
+                    });
+                })
+                .catch(() =>{
+                    removed++;
+                    if (removed === downloads.length)
+                    {
+                        resolve();
+                    }
+                });
+            }
+        });
+    }
+
+    cleanDownloads(components)
+    {
+        return new Promise((resolve) => {
+            const downloads = [];
+            for (let i = 0; i < components.length; i++)
+            {
+                const directory = components[i];
+                const directories = directory.replace(/(src\/)|[\/]$/g, '').trim().toLowerCase().split('/');
+                const componentName = directories[1];
+                const categoryName = directories[0];
+
+                if (componentName && categoryName)
+                {
+                    const download = {
+                        component: componentName,
+                        category: categoryName
+                    };
+                    downloads.push(download);
+                }
+            }
+
+            resolve(downloads);
+        });
+    }
+
+    getComponentDirectories()
+    {
+        return new Promise((resolve, reject) => {
+            glob('src/**/*/', (error, directories) => {
+                if (error)
+                {
+                    reject(error);
+                }
+
+                resolve(directories);
             });
         });
     }
