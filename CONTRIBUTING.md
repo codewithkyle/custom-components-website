@@ -1,6 +1,6 @@
 # Contributing
 
-There are two primary ways to contribute to this project. You can [request a new component](https://github.com/codewithkyle/custom-components-website/issues/new) through GitHub issues or you can write your own component/category and submit a pull request.
+There are two primary ways to contribute to this project. You can [request a new component](https://github.com/codewithkyle/web-components-library/issues/new) through GitHub issues or you can write your own component/category and submit a pull request.
 
 ## Adding a Category
 
