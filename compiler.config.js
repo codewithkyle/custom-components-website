@@ -67,7 +67,7 @@ class Compiler
             const downloads = await this.cleanDownloads(componentDirectories);
             await this.generatedDownloadsDirectory(downloads);
             await this.generateDownloads(downloads);
-            await this.cleanupTempDirectories(downloads);
+            await this.cleanupTempDirectories();
             
             await this.moveCNAME();
             await this.removeCompiledDirectory();
@@ -116,45 +116,26 @@ class Compiler
         });
     }
 
-    cleanupTempDirectories(downloads)
+    cleanupTempDirectories()
     {
         return new Promise((resolve, reject) => {
-            if (downloads.length === 0)
-            {
-                resolve();
-            }
-
-            let removed = 0;
-            for (let i = 0; i < downloads.length; i++)
-            {
-                const category = downloads[i].category;
-                const component = downloads[i].component;
-                fs.exists(`src/${ category }/${ component }/temp`, (exists) => {
-                    if (exists)
-                    {
-                        fs.rmdir(`src/${ category }/${ component }/temp`, { recursive: true }, (error) => {
-                            if (error)
-                            {
-                                reject(error);
-                            }
-    
-                            removed++;
-                            if (removed === downloads.length)
-                            {
-                                resolve();
-                            }
-                        });
-                    }
-                    else
-                    {
-                        removed++;
-                        if (removed === downloads.length)
+            fs.exists('_downloads', (exists) => {
+                if (exists)
+                {
+                    fs.rmdir('_downloads', { recursive: true }, (error) => {
+                        if (error)
                         {
-                            resolve();
+                            reject(error);
                         }
-                    }
-                });
-            }
+
+                        resolve();
+                    });
+                }
+                else
+                {
+                    resolve();
+                }
+            });
         });
     }
 
@@ -172,9 +153,9 @@ class Compiler
                 const component = downloads[i].component;
 
                 (async () => {
-                    await fs.mkdir(`src/${ category }/${ component }/temp`, (error) => { if (error) { reject(error); } });
+                    await fs.mkdir(`_downloads/${ category }/${ component }`, (error) => { if (error) { reject(error); } });
                     await fs.promises.access(`src/${ category }/${ component }/index.html`).then(() => {
-                        fs.copyFileSync(`src/${ category }/${ component }/index.html`, `src/${ category }/${ component }/temp/index.html`, (error) => {
+                        fs.copyFileSync(`src/${ category }/${ component }/index.html`, `_downloads/${ category }/${ component }/index.html`, (error) => {
                             if (error)
                             {
                                 reject(error);
@@ -182,7 +163,7 @@ class Compiler
                         });
                     }).catch(() => {});
                     await fs.promises.access(`src/${ category }/${ component }/${ component }.scss`).then(() => {
-                        fs.copyFileSync(`src/${ category }/${ component }/${ component }.scss`, `src/${ category }/${ component }/temp/${ component }.scss`, (error) => {
+                        fs.copyFileSync(`src/${ category }/${ component }/${ component }.scss`, `_downloads/${ category }/${ component }/${ component }.scss`, (error) => {
                             if (error)
                             {
                                 reject(error);
@@ -190,7 +171,7 @@ class Compiler
                         });
                     }).catch(() => {});
                     await fs.promises.access(`src/${ category }/${ component }/${ component }.ts`).then(() => {
-                        fs.copyFileSync(`src/${ category }/${ component }/${ component }.ts`, `src/${ category }/${ component }/temp/${ component }.ts`, (error) => {
+                        fs.copyFileSync(`src/${ category }/${ component }/${ component }.ts`, `_downloads/${ category }/${ component }/${ component }.ts`, (error) => {
                             if (error)
                             {
                                 reject(error);
@@ -207,7 +188,7 @@ class Compiler
                         }
                     });
                     archive.pipe(output);
-                    archive.directory(`src/${ category }/${ component }/temp`, `${ component }`);
+                    archive.directory(`_downloads/${ category }/${ component }`, `${ component }`);
                     archive.finalize();
                 })();
             }
@@ -248,46 +229,60 @@ class Compiler
                     reject(error);
                 }
 
-                if (downloads.length === 0)
-                {
-                    resolve();
-                }
-
-                let generated = 0;
-                const uniqueCategories = [];
-                for (let i = 0; i < downloads.length; i++)
-                {
-                    const category = downloads[i].category;
-                    let isUnique = true;
-                    for (let k = 0; k < uniqueCategories.length; k++)
+                fs.mkdir('_downloads', (error) => {
+                    if (error)
                     {
-                        if (category === uniqueCategories[k])
+                        reject(error);
+                    }
+
+                    if (downloads.length === 0)
+                    {
+                        resolve();
+                    }
+
+                    let generated = 0;
+                    const uniqueCategories = [];
+                    for (let i = 0; i < downloads.length; i++)
+                    {
+                        const category = downloads[i].category;
+                        let isUnique = true;
+                        for (let k = 0; k < uniqueCategories.length; k++)
                         {
-                            isUnique = false;
+                            if (category === uniqueCategories[k])
+                            {
+                                isUnique = false;
+                            }
+                        }
+
+                        if (isUnique)
+                        {
+                            uniqueCategories.push(category);
                         }
                     }
 
-                    if (isUnique)
+                    for (let i = 0; i < uniqueCategories.length; i++)
                     {
-                        uniqueCategories.push(category);
-                    }
-                }
+                        fs.mkdir(`build/assets/downloads/${ uniqueCategories[i] }`, (error) => {
+                            if (error)
+                            {
+                                reject(error);
+                            }
 
-                for (let i = 0; i < uniqueCategories.length; i++)
-                {
-                    fs.mkdir(`build/assets/downloads/${ uniqueCategories[i] }`, (error) => {
-                        if (error)
-                        {
-                            reject(error);
-                        }
+                            fs.mkdir(`_downloads/${ uniqueCategories[i] }`, (error) => {
+                                if (error)
+                                {
+                                    reject(error);
+                                }
 
-                        generated++;
-                        if (generated === uniqueCategories.length)
-                        {
-                            resolve();
-                        }
-                    });
+                                generated++;
+                                if (generated === uniqueCategories.length)
+                                {
+                                    resolve();
+                                }
+                            });
+                        });
                 }
+                });
             });
         });
     }
