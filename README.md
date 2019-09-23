@@ -1,23 +1,20 @@
-# Sandbox Framework
+# Web Components Library
 
-This is a sandbox framework built around quickly building demos, prototypes, or web applications using [Web Components](https://developer.mozilla.org/en-US/docs/Web/Web_Components) for deployment with [GitHub actions](https://github.com/features/actions) to [GitHub Pages](https://pages.github.com/).
+Browse, demo, and download prebuilt web components based around the Atomic Design methodology.
 
 ## Requirements
 
 - [Nodejs >= 12.10.0](https://nodejs.org/en/)
-- [GitHub Actions](https://github.com/features/actions)
 
-## New Project Setup
-
-1. Download the [latest release](https://github.com/codewithkyle/sandbox-framework/releases)
-2. Install NPM packages
+## Project Setup
 
 ```sh
 # Install NPM packages
-npm i
-```
+npm ci
 
-3. Open the `.env` file and fill in the information for your project
+# Build the project
+npm run compile
+```
 
 ## Usage
 
@@ -30,68 +27,34 @@ npm run build
 
 # Start an HTTP server
 npm run preview
-
-# Deploy to gh-pages
-npm run deploy
 ```
 
-### Registering Files
+## Adding Categories
 
-Files are registered via script elements on the pages `.html` file. Use the following scripts to register your files.
+To create new category run the following command in your terminal:
 
-```html
-<!-- Web Components -->
-<script defer>components = [...components, 'my-custom-component'];</script>
-
-<!-- State Mangers -->
-<script defer>modules = [...modules, 'state-manager'];</script>
-
-<!-- Stylesheets -->
-<script defer>stylesheets = [...stylesheets, 'my-custom-stylesheet'];</script>
+```sh
+npm run create
 ```
 
-### Building Pages
+Then select the **Category** option from the list.
 
-All HTML files that are created within the `src/` directory will be injected into the `shell.html` file and placed in the `build/` directory when compiled. The directory structures created within the `src/` directory will be recreated in the `build/` directory when compiling the `.html` files. The `.html` file **SHOULD NOT** be valid HTML documents since they will be injected into the `shell.html` file when compiled.
+## Adding Web Components
 
-**Example**
+To create new web component run the following command in your terminal:
 
-I want a `/app` route for my project. In the `src/` directory I would create a `app/` directory and place an `index.html` file within it. Then, after running the `npm run build` command, my new `/app` route will be available when previewing the site.
-
-### State Managers
-
-When creating a global state manager it's recommended that you place the source code in the `web_modules/` directory. At then end of a state managers file the manager should instantiate itself onto the `window` object. State managers are loaded before web components and when mounted onto the `window` can be called by all components whenever required.
-
-**Example**
-
-```javascript
-class StateManager
-{
-    constructor()
-    {
-        console.log('Hello world!');
-    }
-}
-
-window.stateManager = new StateManager();
+```sh
+npm run create
 ```
 
-### Web Components
+Then select the **Component** option from the list. Enter a short but descriptive name for you new component before selecting what category the component should be generated in. If the component doesn't seem to fit into any of the listed categories terminate the generator and create the new category first.
 
-Web components can exist anywhere within the `src/` directory. It's recommended that global components exist directly within the `src/` directory while all the other components are placed relative to the pages that they'll be used on.
+Navigate into the `src/` directory and locate your new component. You'll notice that some default files will be generated for you, feel free to change them or remove them depending on your components needs.
 
-**Example**
+If you need custom HTML, CSS, or JavaScript that will only appear in the demo viewer and now in the source code feel free to add the following files to the components directory:
 
-I want to create a global outline input component. I'll start by creating a `outline-input-component/` directory in the `src/` directory. Then I'll create a `outline-input-component.ts` file, a `outline-input-component.scss`, and a `outline-input-component.example` file within the `outline-input-component/` directory. *Note:* the `.example` file will not be used, it just exist as an example of how the web components HTML should be structured. Below is an example of how to define web components, you can read more about web components [here](https://developer.mozilla.org/en-US/docs/Web/Web_Components).
+- `demo.scss`
+- `demo.html`
+- `demo.ts`
 
-```javascript
-class OutlineInputComponent extends HTMLElement
-{
-    connectedCallback()
-    {
-        this.addEventListener('click', () => { console.log('Outline Input Component was clicked'); });
-    }
-}
-
-customElements.define('outline-input-component', OutlineInputComponent);
-```
+If these files are available when the compiler runs they will be injected into the compiled files.
