@@ -69,6 +69,8 @@ class SourceViewComponent extends HTMLElement {
                 sourceCode.classList.add('html');
                 if (!hasDataModel) {
                     tab.classList.add('is-active');
+                }
+                else {
                     sourceCode.classList.add('is-hidden');
                 }
                 this._sourceViews.appendChild(sourceCode);
