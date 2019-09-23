@@ -6,7 +6,7 @@ class GithubLinkComponent extends HTMLElement {
     }
     updateLink(e) {
         let cleanHref = e.detail.href.replace(window.location.origin, '');
-        const newHref = `https://github.com/codewithkyle/custom-components-website/tree/master/src/${cleanHref.replace(/^[\/]/g, '')}`;
+        const newHref = `https://github.com/codewithkyle/web-components-library/tree/master/src/${cleanHref.replace(/^[\/]/g, '')}`;
         this._link.href = newHref;
     }
     connectedCallback() {

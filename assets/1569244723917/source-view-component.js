@@ -17,7 +17,7 @@ class SourceViewComponent extends HTMLElement {
     }
     loadRaw(category, component, filename, extension) {
         return new Promise((resolve, reject) => {
-            fetch(`https://raw.githubusercontent.com/codewithkyle/custom-components-website/master/src/${category}/${component}/${filename}.${extension}`)
+            fetch(`https://raw.githubusercontent.com/codewithkyle/web-components-library/master/src/${category}/${component}/${filename}.${extension}`)
                 .then(request => {
                 if (request.ok) {
                     request.text().then(response => {
@@ -135,7 +135,7 @@ class SourceViewComponent extends HTMLElement {
                     tab.innerText = 'README';
                     tab.dataset.view = 'README';
                     const sourceCode = document.createElement('code');
-                    sourceCode.innerHTML = `<p>No readme available. <a href="https://github.com/codewithkyle/custom-components-website/new/master/src/${e.detail.category}/${e.detail.component}" target="_blank">Create one.</a></p>`;
+                    sourceCode.innerHTML = `<p>No readme available. <a href="https://github.com/codewithkyle/web-components-library/new/master/src/${e.detail.category}/${e.detail.component}" target="_blank">Create one.</a></p>`;
                     sourceCode.dataset.view = 'README';
                     sourceCode.classList.add('is-hidden');
                     sourceCode.classList.add('markdown');
@@ -165,7 +165,7 @@ class SourceViewComponent extends HTMLElement {
                     tab.innerText = 'CHANGELOG';
                     tab.dataset.view = 'CHANGELOG';
                     const sourceCode = document.createElement('code');
-                    sourceCode.innerHTML = `<p>No changelog available. <a href="https://github.com/codewithkyle/custom-components-website/new/master/src/${e.detail.category}/${e.detail.component}" target="_blank">Create one.</a></p>`;
+                    sourceCode.innerHTML = `<p>No changelog available. <a href="https://github.com/codewithkyle/web-components-library/new/master/src/${e.detail.category}/${e.detail.component}" target="_blank">Create one.</a></p>`;
                     sourceCode.dataset.view = 'CHANGELOG';
                     sourceCode.classList.add('is-hidden');
                     sourceCode.classList.add('markdown');
