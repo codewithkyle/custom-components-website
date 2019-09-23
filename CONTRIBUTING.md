@@ -32,7 +32,7 @@ If you need custom HTML, CSS, or JavaScript that will only appear in the demo vi
 
 If these files are available when the compiler runs they will be injected into the compiled files.
 
-## Compiling
+## Scripts
 
 Run the following commands to compile the project:
 
@@ -40,6 +40,9 @@ Run the following commands to compile the project:
 # Compiles the code
 npm run compile
 
-# Compiles the code and starts up an HTTP server
+# Compiles the code and starts a HTTP server
 npm run build
+
+# Starts a HTTP server
+npm run preview
 ```
