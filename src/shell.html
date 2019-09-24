@@ -171,7 +171,7 @@
     <script type="module">
         if ('serviceWorker' in navigator && window.location.hostname.toLowerCase() === 'components.codewithkyle.com')
         {
-            navigator.serviceWorker.register("worker.js", { scope: '/' })
+            navigator.serviceWorker.register(`${ window.location.origin }/worker.js`, { scope: '/' })
             .then((reg) => {
                 if (navigator.serviceWorker.controller)
                 {

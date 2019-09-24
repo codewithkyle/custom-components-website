@@ -26,7 +26,6 @@ self.addEventListener('fetch', (event:any) => {
                 caches.open(currentTimestamp).then((cache) => {
                     cache.put(event.request, responseClone);
                 });
-
                 return response;
             });
         }).catch(() => {
