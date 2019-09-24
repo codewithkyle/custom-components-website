@@ -19,7 +19,8 @@ self.addEventListener('message', (event)=>{
 });
 
 self.addEventListener('fetch', (event:any) => {
-    console.log(event.request.url);
+    const modifiedRequest = { ...event.request };
+    console.log(modifiedRequest.url);
     event.respondWith(
         caches.match(event.request).then((resp) => {
             return resp || fetch(event.request).then((response) => {
