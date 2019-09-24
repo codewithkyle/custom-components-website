@@ -23,7 +23,7 @@ radio-component
 
                     &:after
 					{
-						transform: scale(1);
+						transform: scale(1) translate(-50%, -50%);
 					}
                 }
             }
@@ -35,21 +35,22 @@ radio-component
 		width: 100%;
 		cursor: pointer;
 		padding-left: 2.75rem;
-		display: inline-flex;
+		display: flex;
 		align-items: center;
 		flex-flow: row nowrap;
+		user-select: none;
 
 		&:hover
 		{
 			radio-icon
 			{
 				&:before{
-					transform: scale(0.87);
+					transform: scale(0.87) translate(-50%, -50%);
 				}
 
 				&:after
 				{
-					transform: scale(1);
+					transform: scale(1) translate(-50%, -50%);
 				}
 			}
 		}
@@ -59,14 +60,14 @@ radio-component
 			radio-icon
 			{
 				&:before{
-					transform: scale(1);
+					transform: scale(1) translate(-50%, -50%);
 					background-color: $primary-active-opacity;
 					transition: all 75ms ease-in-out;
 				}
 
 				&:after
 				{
-					transform: scale(1);
+					transform: scale(1) translate(-50%, -50%);
 				}
 			}
 		}
@@ -95,10 +96,13 @@ radio-component
 				width: 3rem;
 				height: 3rem;
 				border-radius: 50%;
-				position: absolute;
 				background-color: $primary-hover-opacity;
-				transform: scale(0);
 				transition: all 75ms ease-in-out;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform-origin: left top;
+				transform: scale(0) translate(-50%, -50%);
 			}
 
 			&::after
@@ -111,7 +115,11 @@ radio-component
 				background-color: $primary;
 				transform-origin: center;
 				transition: all 150ms ease-in-out;
-				transform: scale(0);
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform-origin: left top;
+				transform: scale(0) translate(-50%, -50%);
 			}
 		}
 
