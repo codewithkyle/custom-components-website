@@ -12,7 +12,8 @@ self.addEventListener('message', (event) => {
     }
 });
 self.addEventListener('fetch', (event) => {
-    console.log(event.request.url);
+    const modifiedRequest = Object.assign({}, event.request);
+    console.log(modifiedRequest.url);
     event.respondWith(caches.match(event.request).then((resp) => {
         return resp || fetch(event.request).then((response) => {
             let responseClone = response.clone();
