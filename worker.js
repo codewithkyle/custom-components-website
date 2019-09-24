@@ -23,8 +23,6 @@ self.addEventListener('fetch', (event) => {
             return response;
         });
     }).catch(() => {
-        fetch(event.request).then((response) => {
-            return response;
-        });
+        return new Response('No internet');
     }));
 });
