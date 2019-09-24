@@ -13,17 +13,25 @@ self.addEventListener('message', (event) => {
     }
 });
 self.addEventListener('fetch', (event) => {
-    event.respondWith(caches.match(event.request).then((resp) => {
-        return resp || fetch(event.request).then((response) => {
-            let responseClone = response.clone();
-            if (!responseClone.redirected && responseClone.ok) {
-                caches.open(currentTimestamp).then((cache) => {
-                    cache.put(event.request, responseClone);
-                });
-            }
+    const requestedFile = event.request.url.replace(/.*\//, '');
+    if (requestedFile.match('.js') || requestedFile.match('.css') || requestedFile.match('.scss') || requestedFile.match('.ts') || requestedFile.match('.json') || requestedFile.match('.html') || requestedFile.match('.md')) {
+        event.respondWith(caches.match(event.request).then((resp) => {
+            return resp || fetch(event.request).then((response) => {
+                let responseClone = response.clone();
+                if (!responseClone.redirected && responseClone.ok) {
+                    caches.open(currentTimestamp).then((cache) => {
+                        cache.put(event.request, responseClone);
+                    });
+                }
+                return response;
+            });
+        }).catch(() => {
+            return new Response('No internet');
+        }));
+    }
+    else {
+        event.respondWith(fetch(event.request).then((response) => {
             return response;
-        });
-    }).catch(() => {
-        return new Response('No internet');
-    }));
+        }));
+    }
 });
