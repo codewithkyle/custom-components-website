@@ -28,7 +28,11 @@ class Application {
                     element = document.createElement('style');
                     element.setAttribute('file', `${criticalCss[0]}.css`);
                     document.head.appendChild(element);
-                    fetch(`${window.location.origin}/assets/${document.documentElement.dataset.cachebust}/${criticalCss[0]}.css`)
+                    fetch(`${window.location.origin}/assets/${document.documentElement.dataset.cachebust}/${criticalCss[0]}.css`, {
+                        redirect: 'follow',
+                        credentials: 'include',
+                        referrerPolicy: 'same-origin'
+                    })
                         .then(request => request.text())
                         .then(response => {
                         element.innerHTML = response;
@@ -66,7 +70,11 @@ class Application {
                     element = document.createElement('style');
                     element.setAttribute('file', `${stylesheets[0]}.css`);
                     this._demoView.appendChild(element);
-                    fetch(`${window.location.origin}/assets/${document.documentElement.dataset.cachebust}/${stylesheets[0]}.css`)
+                    fetch(`${window.location.origin}/assets/${document.documentElement.dataset.cachebust}/${stylesheets[0]}.css`, {
+                        redirect: 'follow',
+                        credentials: 'include',
+                        referrerPolicy: 'same-origin'
+                    })
                         .then(request => request.text())
                         .then(response => {
                         element.innerHTML = response;
@@ -104,7 +112,11 @@ class Application {
                     element = document.createElement('script');
                     element.setAttribute('file', `${modules[0]}.js`);
                     document.head.appendChild(element);
-                    fetch(`${window.location.origin}/assets/${document.documentElement.dataset.cachebust}/${modules[0]}.js`)
+                    fetch(`${window.location.origin}/assets/${document.documentElement.dataset.cachebust}/${modules[0]}.js`, {
+                        redirect: 'follow',
+                        credentials: 'include',
+                        referrerPolicy: 'same-origin'
+                    })
                         .then(request => request.text())
                         .then(response => {
                         element.innerHTML = response;
@@ -142,7 +154,11 @@ class Application {
                     element = document.createElement('script');
                     element.setAttribute('file', `${criticalComponents[0]}.js`);
                     document.head.appendChild(element);
-                    fetch(`${window.location.origin}/assets/${document.documentElement.dataset.cachebust}/${criticalComponents[0]}.js`)
+                    fetch(`${window.location.origin}/assets/${document.documentElement.dataset.cachebust}/${criticalComponents[0]}.js`, {
+                        redirect: 'follow',
+                        credentials: 'include',
+                        referrerPolicy: 'same-origin'
+                    })
                         .then(request => request.text())
                         .then(response => {
                         element.innerHTML = response;
@@ -180,7 +196,11 @@ class Application {
                     element = document.createElement('script');
                     element.setAttribute('file', `${components[0]}.js`);
                     this._demoView.appendChild(element);
-                    fetch(`${window.location.origin}/assets/${document.documentElement.dataset.cachebust}/${components[0]}.js`)
+                    fetch(`${window.location.origin}/assets/${document.documentElement.dataset.cachebust}/${components[0]}.js`, {
+                        redirect: 'follow',
+                        credentials: 'include',
+                        referrerPolicy: 'same-origin'
+                    })
                         .then(request => request.text())
                         .then(response => {
                         element.innerHTML = response;
