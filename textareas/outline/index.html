@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="is-loading" data-cachebust="1569347409475">
+<html lang="en" class="is-loading" data-cachebust="1569347886906">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -181,7 +181,7 @@
     <script type="module">
         if ('serviceWorker' in navigator && window.location.hostname.toLowerCase() === 'components.codewithkyle.com')
         {
-            navigator.serviceWorker.register("worker.js", { scope: '/' })
+            navigator.serviceWorker.register(`${ window.location.origin }/worker.js`, { scope: '/' })
             .then((reg) => {
                 if (navigator.serviceWorker.controller)
                 {
