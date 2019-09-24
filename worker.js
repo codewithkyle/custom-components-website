@@ -1,5 +1,6 @@
 let currentTimestamp = 'initial';
 self.addEventListener('message', (event) => {
+    console.log(event.data.application);
     if (event.data.application) {
         currentTimestamp = event.data.application;
         caches.keys().then((cacheNames) => {
