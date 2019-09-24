@@ -32,9 +32,7 @@ self.addEventListener('fetch', (event:any) => {
                 return response;
             });
         }).catch(() => {
-            fetch(event.request).then((response) => {
-                return response;
-            });
+            return new Response('No internet');
         })
     );
 });
