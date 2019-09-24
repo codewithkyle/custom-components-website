@@ -27,7 +27,7 @@ self.addEventListener('fetch', (event:any) => {
             caches.match(event.request).then((resp) => {
                 return resp || fetch(event.request).then((response) => {
                     let responseClone = response.clone();
-                    if (!responseClone.redirected && responseClone.ok)
+                    if (!responseClone.redirected && responseClone.status === 200)
                     {
                         caches.open(currentTimestamp).then((cache) => {
                             cache.put(event.request, responseClone);
