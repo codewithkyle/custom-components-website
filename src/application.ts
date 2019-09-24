@@ -1,6 +1,8 @@
 declare var stylesheets : Array<string>;
 declare var modules : Array<string>;
 declare var components : Array<string>;
+declare var criticalCss : Array<string>;
+declare var criticalComponents : Array<string>;
 
 class Application
 {
@@ -17,6 +19,54 @@ class Application
 
     private handlePageLoadEvent:EventListener = this.run.bind(this);
 
+    private getCriticalCss() : Promise<any>
+    {
+        return new Promise((resolve)=>{
+            if (!criticalCss.length)
+            {
+                resolve();
+            }
+
+            let count = 0;
+            const requiredCount = criticalCss.length;
+            while (criticalCss.length)
+            {
+                let element = document.head.querySelector(`style[file="${ criticalCss[0] }.css"]`);
+                if (!element)
+                {
+                    element = document.createElement('style');
+                    element.setAttribute('file', `${ criticalCss[0] }.css`);
+                    document.head.appendChild(element);
+                    fetch(`${ window.location.origin }/assets/${ document.documentElement.dataset.cachebust }/${ criticalCss[0] }.css`)
+                    .then(request => request.text())
+                    .then(response => {
+                        element.innerHTML = response;
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    })
+                    .then(() => {
+                        count++;
+                        if (count === requiredCount)
+                        {
+                            resolve();
+                        }
+                    });
+                }
+                else
+                {
+                    count++;
+                    if (count === requiredCount)
+                    {
+                        resolve();
+                    }
+                }
+
+                criticalCss.splice(0, 1);
+            }
+        });
+    }
+
     private getStylesheets() : Promise<any>
     {
         return new Promise((resolve)=>{
@@ -29,12 +79,12 @@ class Application
             const requiredCount = stylesheets.length;
             while (stylesheets.length)
             {
-                let element = document.head.querySelector(`style[file="${ stylesheets[0] }.css"]`);
+                let element = this._demoView.querySelector(`style[file="${ stylesheets[0] }.css"]`);
                 if (!element)
                 {
                     element = document.createElement('style');
                     element.setAttribute('file', `${ stylesheets[0] }.css`);
-                    document.head.appendChild(element);
+                    this._demoView.appendChild(element);
                     fetch(`${ window.location.origin }/assets/${ document.documentElement.dataset.cachebust }/${ stylesheets[0] }.css`)
                     .then(request => request.text())
                     .then(response => {
@@ -113,6 +163,55 @@ class Application
         });
     }
 
+    private getCriticalComponents() : Promise<any>
+    {
+        return new Promise((resolve)=>{
+            if (!criticalComponents.length)
+            {
+                resolve();
+            }
+            
+            let count = 0;
+            const requiredCount = criticalComponents.length;
+
+            while (criticalComponents.length)
+            {
+                let element = document.head.querySelector(`script[file="${ criticalComponents[0] }.js"]`);
+                if (!element)
+                {
+                    element = document.createElement('script');
+                    element.setAttribute('file', `${ criticalComponents[0] }.js`);
+                    document.head.appendChild(element);
+                    fetch(`${ window.location.origin }/assets/${ document.documentElement.dataset.cachebust }/${ criticalComponents[0] }.js`)
+                    .then(request => request.text())
+                    .then(response => {
+                        element.innerHTML = response;
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    })
+                    .then(() => {
+                        count++;
+                        if (count === requiredCount)
+                        {
+                            resolve();
+                        }
+                    });
+                }
+                else
+                {
+                    count++;
+                    if (count === requiredCount)
+                    {
+                        resolve();
+                    }
+                }
+
+                criticalComponents.splice(0, 1);
+            }
+        });
+    }
+
     private getComponents() : Promise<any>
     {
         return new Promise((resolve)=>{
@@ -126,12 +225,12 @@ class Application
 
             while (components.length)
             {
-                let element = document.head.querySelector(`script[file="${ components[0] }.js"]`);
+                let element = this._demoView.querySelector(`script[file="${ components[0] }.js"]`);
                 if (!element)
                 {
                     element = document.createElement('script');
                     element.setAttribute('file', `${ components[0] }.js`);
-                    document.head.appendChild(element);
+                    this._demoView.appendChild(element);
                     fetch(`${ window.location.origin }/assets/${ document.documentElement.dataset.cachebust }/${ components[0] }.js`)
                     .then(request => request.text())
                     .then(response => {
@@ -180,8 +279,10 @@ class Application
     {
         try
         {
+            await this.getCriticalCss();
             await this.getStylesheets();
             await this.getModules();
+            await this.getCriticalComponents();
             await this.getComponents();
             this.finishLoading();
         }
