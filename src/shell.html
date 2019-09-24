@@ -168,8 +168,8 @@
         </div>
     </main>
     <script type="module" src="/assets/application.js"></script>
-    <!-- <script type="module">
-        if ('serviceWorker' in navigator && !window.location.origin.match(/\.local/gi) && !window.location.hostname.match('localhost') && !window.location.hostname.match('127.0.0.1'))
+    <script type="module">
+        if ('serviceWorker' in navigator && window.location.hostname.toLowerCase() === 'components.codewithkyle.com')
         {
             navigator.serviceWorker.register("worker.js", { scope: '/' })
             .then((reg) => {
@@ -181,6 +181,6 @@
                 console.error('Registration failed with ' + error);
             });
         }
-    </script> -->
+    </script>
 </body>
 </html>
