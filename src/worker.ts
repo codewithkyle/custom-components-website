@@ -20,9 +20,8 @@ self.addEventListener('message', (event)=>{
 
 self.addEventListener('fetch', (event:any) => {
     const requestedFile = event.request.url.replace(/.*\//, '');
-    if (requestedFile.match('.js') || requestedFile.match('.css') || requestedFile.match('.scss') || requestedFile.match('.ts') || requestedFile.match('.json') || requestedFile.match('.md'))
+    if (requestedFile.match('.js') || requestedFile.match('.css') || requestedFile.match('.scss') || requestedFile.match('.ts') || requestedFile.match('.json') || requestedFile.match('.html') || requestedFile.match('.md'))
     {
-        console.log(event.request.url);
         event.respondWith(
             caches.match(event.request).then((resp) => {
                 return resp || fetch(event.request).then((response) => {
