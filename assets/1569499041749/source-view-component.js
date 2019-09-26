@@ -17,7 +17,7 @@ class SourceViewComponent extends HTMLElement {
     }
     loadRaw(category, component, filename, extension) {
         return new Promise((resolve, reject) => {
-            fetch(`https://raw.githubusercontent.com/codewithkyle/web-components-library/master/src/${category}/${component}/${filename}.${extension}`)
+            fetch(`https://raw.githubusercontent.com/codewithkyle/web-components-library/master/src/${category}/${component}/${filename}.${extension}`, { cache: 'no-cache' })
                 .then(request => {
                 if (request.ok) {
                     request.text().then(response => {
