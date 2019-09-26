@@ -57,11 +57,16 @@ class Application {
                     el.setAttribute('file', `${fileListArray[0]}.${filetype}`);
                     document.head.append(el);
                     this.fetchFile(el, fileListArray[0], filetype)
-                        .then(() => { })
+                        .then(() => {
+                        el.addEventListener('load', () => {
+                            count++;
+                            if (count === required) {
+                                resolve();
+                            }
+                        });
+                    })
                         .catch(error => {
                         console.error(error);
-                    })
-                        .finally(() => {
                         count++;
                         if (count === required) {
                             resolve();
