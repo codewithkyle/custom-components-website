@@ -15,193 +15,66 @@ class Application {
         this.run();
         window.addEventListener('page-load', this.handlePageLoadEvent);
     }
-    getCriticalCss() {
-        return new Promise((resolve) => {
-            if (!criticalCss.length) {
-                resolve();
-            }
-            let count = 0;
-            const requiredCount = criticalCss.length;
-            while (criticalCss.length) {
-                let element = document.head.querySelector(`style[file="${criticalCss[0]}.css"]`);
-                if (!element) {
-                    element = document.createElement('style');
-                    element.setAttribute('file', `${criticalCss[0]}.css`);
-                    document.head.appendChild(element);
-                    fetch(`${window.location.origin}/assets/${document.documentElement.dataset.cachebust}/${criticalCss[0]}.css`)
-                        .then(request => request.text())
-                        .then(response => {
-                        element.innerHTML = response;
-                    })
-                        .catch(error => {
-                        console.error(error);
-                    })
-                        .then(() => {
-                        count++;
-                        if (count === requiredCount) {
-                            resolve();
-                        }
-                    });
+    fetchFile(element, filename, filetype) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const request = yield fetch(`${window.location.origin}/assets/${document.documentElement.dataset.cachebust}/${filename}.${filetype}`);
+                if (request.ok) {
+                    const response = yield request.blob();
+                    const fileUrl = URL.createObjectURL(response);
+                    switch (filetype) {
+                        case 'css':
+                            element.setAttribute('rel', 'stylesheet');
+                            element.setAttribute('href', fileUrl);
+                            break;
+                        case 'js':
+                            element.setAttribute('type', 'text/javascript');
+                            element.setAttribute('src', fileUrl);
+                            break;
+                    }
+                    return;
                 }
                 else {
-                    count++;
-                    if (count === requiredCount) {
-                        resolve();
-                    }
+                    throw `Failed to fetch ${filename}.${filetype} server responded with ${request.status}`;
                 }
-                criticalCss.splice(0, 1);
+            }
+            catch (error) {
+                throw error;
             }
         });
     }
-    getStylesheets() {
+    fetchResources(fileListArray, element, filetype) {
         return new Promise((resolve) => {
-            if (!stylesheets.length) {
+            if (fileListArray.length === 0) {
                 resolve();
             }
             let count = 0;
-            const requiredCount = stylesheets.length;
-            while (stylesheets.length) {
-                let element = this._demoView.querySelector(`style[file="${stylesheets[0]}.css"]`);
-                if (!element) {
-                    element = document.createElement('style');
-                    element.setAttribute('file', `${stylesheets[0]}.css`);
-                    this._demoView.appendChild(element);
-                    fetch(`${window.location.origin}/assets/${document.documentElement.dataset.cachebust}/${stylesheets[0]}.css`)
-                        .then(request => request.text())
-                        .then(response => {
-                        element.innerHTML = response;
-                    })
+            const required = fileListArray.length;
+            while (fileListArray.length > 0) {
+                let el = document.head.querySelector(`${element}[file="${fileListArray[0]}.${filetype}"]`);
+                if (!el) {
+                    el = document.createElement(element);
+                    el.setAttribute('file', `${fileListArray[0]}.${filetype}`);
+                    document.head.append(el);
+                    this.fetchFile(el, fileListArray[0], filetype)
+                        .then(() => { })
                         .catch(error => {
                         console.error(error);
                     })
-                        .then(() => {
+                        .finally(() => {
                         count++;
-                        if (count === requiredCount) {
+                        if (count === required) {
                             resolve();
                         }
                     });
                 }
                 else {
                     count++;
-                    if (count === requiredCount) {
+                    if (count === required) {
                         resolve();
                     }
                 }
-                stylesheets.splice(0, 1);
-            }
-        });
-    }
-    getModules() {
-        return new Promise((resolve) => {
-            if (!modules.length) {
-                resolve();
-            }
-            let count = 0;
-            const requiredCount = modules.length;
-            while (modules.length) {
-                let element = document.head.querySelector(`script[file="${modules[0]}.js"]`);
-                if (!element) {
-                    element = document.createElement('script');
-                    element.setAttribute('file', `${modules[0]}.js`);
-                    document.head.appendChild(element);
-                    fetch(`${window.location.origin}/assets/${document.documentElement.dataset.cachebust}/${modules[0]}.js`)
-                        .then(request => request.text())
-                        .then(response => {
-                        element.innerHTML = response;
-                    })
-                        .catch(error => {
-                        console.error(error);
-                    })
-                        .then(() => {
-                        count++;
-                        if (count === requiredCount) {
-                            resolve();
-                        }
-                    });
-                }
-                else {
-                    count++;
-                    if (count === requiredCount) {
-                        resolve();
-                    }
-                }
-                modules.splice(0, 1);
-            }
-        });
-    }
-    getCriticalComponents() {
-        return new Promise((resolve) => {
-            if (!criticalComponents.length) {
-                resolve();
-            }
-            let count = 0;
-            const requiredCount = criticalComponents.length;
-            while (criticalComponents.length) {
-                let element = document.head.querySelector(`script[file="${criticalComponents[0]}.js"]`);
-                if (!element) {
-                    element = document.createElement('script');
-                    element.setAttribute('file', `${criticalComponents[0]}.js`);
-                    document.head.appendChild(element);
-                    fetch(`${window.location.origin}/assets/${document.documentElement.dataset.cachebust}/${criticalComponents[0]}.js`)
-                        .then(request => request.text())
-                        .then(response => {
-                        element.innerHTML = response;
-                    })
-                        .catch(error => {
-                        console.error(error);
-                    })
-                        .then(() => {
-                        count++;
-                        if (count === requiredCount) {
-                            resolve();
-                        }
-                    });
-                }
-                else {
-                    count++;
-                    if (count === requiredCount) {
-                        resolve();
-                    }
-                }
-                criticalComponents.splice(0, 1);
-            }
-        });
-    }
-    getComponents() {
-        return new Promise((resolve) => {
-            if (!components.length) {
-                resolve();
-            }
-            let count = 0;
-            const requiredCount = components.length;
-            while (components.length) {
-                let element = this._demoView.querySelector(`script[file="${components[0]}.js"]`);
-                if (!element) {
-                    element = document.createElement('script');
-                    element.setAttribute('file', `${components[0]}.js`);
-                    this._demoView.appendChild(element);
-                    fetch(`${window.location.origin}/assets/${document.documentElement.dataset.cachebust}/${components[0]}.js`)
-                        .then(request => request.text())
-                        .then(response => {
-                        element.innerHTML = response;
-                    })
-                        .catch(error => {
-                        console.error(error);
-                    })
-                        .then(() => {
-                        count++;
-                        if (count === requiredCount) {
-                            resolve();
-                        }
-                    });
-                }
-                else {
-                    count++;
-                    if (count === requiredCount) {
-                        resolve();
-                    }
-                }
-                components.splice(0, 1);
+                fileListArray.splice(0, 1);
             }
         });
     }
@@ -218,11 +91,11 @@ class Application {
     run() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield this.getCriticalCss();
-                yield this.getStylesheets();
-                yield this.getModules();
-                yield this.getCriticalComponents();
-                yield this.getComponents();
+                yield this.fetchResources(window.criticalCss, 'link', 'css');
+                yield this.fetchResources(window.stylesheets, 'link', 'css');
+                yield this.fetchResources(window.modules, 'script', 'js');
+                yield this.fetchResources(window.criticalComponents, 'script', 'js');
+                yield this.fetchResources(window.components, 'script', 'js');
                 this.finishLoading();
             }
             catch (error) {
