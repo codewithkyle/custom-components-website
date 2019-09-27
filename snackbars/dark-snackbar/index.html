@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="is-loading" data-cachebust="1569628101838">
+<html lang="en" class="is-loading" data-cachebust="1569628259200">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -140,6 +140,60 @@
     <button class="js-demo-2">Closeable</button>
     <button class="js-demo-3">Callback</button>
 </demo-buttons>
+<script defer>
+var demo1 = document.body.querySelector('.js-demo-1');
+demo1.addEventListener('click', (e)=>{
+    notificationManager.notify({
+        message: 'This is a demo notification',
+    });
+});
+
+var demo2 = document.body.querySelector('.js-demo-2');
+demo2.addEventListener('click', (e)=>{
+    notificationManager.notify({
+        message: 'This is a closeable notification',
+        closeable: true,
+        duration: Infinity,
+    });
+});
+
+class Button3
+{
+    constructor()
+    {
+        this.variable = 'Hello world!';
+        this.demo3 = document.body.querySelector('.js-demo-3');
+        this.demo3.addEventListener('click', (e)=>{
+            notificationManager.notify({
+                message: 'This notification has a callback',
+                closeable: true,
+                duration: Infinity,
+                buttons: [
+                    {
+                        label: 'alert',
+                        callback: this.alertUser.bind(this),
+                    },
+                    {
+                        label: 'reload',
+                        callback: this.reloadPage,
+                    }
+                ]
+            });
+        });
+    }
+
+    reloadPage()
+    {
+        window.location.reload();
+    }
+
+    alertUser()
+    {
+        window.alert(this.variable)
+    }
+}
+new Button3();
+</script>
                     <script type="module">
 	stylesheets = [...stylesheets, 'snackbars/dark-snackbar'];
 </script>
