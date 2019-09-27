@@ -3,7 +3,8 @@
 		"alt-outline-primary",
 		"outline-primary",
 		"raised-solid-primary",
-		"solid-primary"
+		"solid-primary",
+		"text-primary"
 	],
 	"checkbox-inputs": [
 		"checkbox",
