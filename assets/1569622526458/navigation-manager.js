@@ -14,6 +14,7 @@ class NavigationManager {
             for (let i = 0; i < scripts.length; i++) {
                 const newScript = document.createElement('script');
                 newScript.innerHTML = scripts[i].innerHTML;
+                scripts[i].remove();
                 oldDemoView.appendChild(newScript);
             }
             let categoryName = window.location.pathname.match(/.*\//)[0];
