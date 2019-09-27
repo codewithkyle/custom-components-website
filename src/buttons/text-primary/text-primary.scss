@@ -1,6 +1,7 @@
 $primary: #4a99ff;
 $primary-hover-opacity: rgba(74, 153, 255, 0.05);
 $primary-active-opacity: rgba(74, 153, 255, 0.1);
+$border-radius: 0.125rem;
 
 text-primary
 {
@@ -50,6 +51,7 @@ text-primary
 		top: 0;
 		left: 0;
 		width: 100%;
+		border-radius: $border-radius;
 		height: 100%;
 		background-color: transparent;
 		transform-origin: center;
