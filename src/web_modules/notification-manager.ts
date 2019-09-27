@@ -8,8 +8,8 @@ interface NotificationButton
 interface SnackbarNotification
 {
     message: string,
-    closeable: boolean,
-    duration: number,
+    duration?: number,
+    closeable?: boolean,
     buttons?: Array<NotificationButton>,
     position?: string,
     element?: HTMLElement,
