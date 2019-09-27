@@ -34,11 +34,20 @@
                     buttons: [
                         {
                             label: 'alert',
-                            callback: this.alertUser.bind(this)
+                            callback: this.alertUser.bind(this),
+                        },
+                        {
+                            label: 'reload',
+                            callback: this.reloadPage,
                         }
                     ]
                 });
             });
+        }
+
+        reloadPage()
+        {
+            window.location.reload();
         }
 
         alertUser()
