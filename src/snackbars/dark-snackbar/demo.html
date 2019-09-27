@@ -1,0 +1,11 @@
+<button class="js-demo-1" style="cursor: pointer; display: block; margin-bottom: 1rem;">Demo 1</button>
+<script defer>
+    var demo1 = document.body.querySelector('.js-demo-1');
+    demo1.addEventListener('click', (e)=>{
+        notificationManager.notify({
+            message: 'This is a demo notification',
+            closeable: true,
+            duration: 15,
+        });
+    });
+</script>

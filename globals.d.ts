@@ -7,3 +7,4 @@ declare var navigationManager: NavigationManager;
 declare var sourceManager: SourceManager;
 declare var hljs: any;
 declare var markdown: any;
+declare var notificationManager: NotificationManager;
