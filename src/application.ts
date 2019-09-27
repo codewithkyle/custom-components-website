@@ -115,7 +115,7 @@ class Application
         if (this.initial)
         {
             this.initial = false;
-            navigationManager.loadComponent(window.location.href.replace(/\/$/, ''));
+            // navigationManager.loadComponent(window.location.href.replace(/\/$/, ''));
         }
     }
 

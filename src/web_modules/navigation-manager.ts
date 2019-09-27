@@ -19,6 +19,7 @@ class NavigationManager
             {
                 const newScript = document.createElement('script');
                 newScript.innerHTML = scripts[i].innerHTML;
+                scripts[i].remove();
                 oldDemoView.appendChild(newScript);
             }
 

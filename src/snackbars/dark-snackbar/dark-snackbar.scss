@@ -21,6 +21,11 @@ snackbar-component
 	color: rgba($white, 0.87);
 	min-width: 350px;
 	max-width: 90vw;
+	transform: scale(0.87);
+	opacity: 0;
+	z-index: 1000;
+	transform-origin: center;
+	animation: notificationPop 300ms cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
 
 	&[position]
 	{
@@ -37,7 +42,9 @@ snackbar-component
 		&[position~="center"]
 		{
 			left: 50%;
-			transform: translateX(-50%);
+			transform: translate(-50%) scale(0.87);
+			transform-origin: left center;
+			animation: notificationPopCenter 300ms cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
 		}
 
 		&[position~="left"]
@@ -180,5 +187,33 @@ snackbar-component
 				transition: all 75ms ease-out;
 			}
 		}
+	}
+}
+
+@keyframes notificationPopCenter
+{
+	from
+	{
+		opacity: 0;
+		transform: scale(0.87) translateX(-50%);
+	}
+	to
+	{
+		opacity: 1;
+		transform: scale(1) translateX(-50%);
+	}
+}
+
+@keyframes notificationPop
+{
+	from
+	{
+		opacity: 0;
+		transform: scale(0.87);
+	}
+	to
+	{
+		opacity: 1;
+		transform: scale(1);
 	}
 }
