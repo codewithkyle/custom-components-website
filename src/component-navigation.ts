@@ -13,7 +13,9 @@ class ComponentNavigation extends HTMLElement
         fetch(`${ window.location.origin }/assets/navigation.json`, {
             headers: new Headers({
                 'Content-Type': 'application/json',
-            })
+            }),
+            cache: 'no-cache',
+            redirect: 'follow'
         })
         .then((request => request.json()))
         .then(response => {
