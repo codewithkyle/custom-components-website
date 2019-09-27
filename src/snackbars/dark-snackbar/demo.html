@@ -1,11 +1,24 @@
-<button class="js-demo-1" style="cursor: pointer; display: block; margin-bottom: 1rem;">Demo 1</button>
+<demo-buttons>
+    <button class="js-demo-1">Demo 1</button>
+    <button class="js-demo-2">Closeable</button>
+</demo-buttons>
 <script defer>
     var demo1 = document.body.querySelector('.js-demo-1');
     demo1.addEventListener('click', (e)=>{
         notificationManager.notify({
             message: 'This is a demo notification',
-            closeable: true,
+            closeable: false,
             duration: 15,
+        });
+    });
+
+    var demo2 = document.body.querySelector('.js-demo-2');
+    demo2.addEventListener('click', (e)=>{
+        notificationManager.notify({
+            message: 'This is a demo notification',
+            closeable: true,
+            duration: Infinity,
+            closeable: true,
         });
     });
 </script>

@@ -1,3 +1,8 @@
+$white: #fff;
+$primary: #4a99ff;
+$primary-hover: hsl(214, 100%, 70%);
+$primary-active: hsl(214, 100%, 60%);
+
 demo-wrapper
 {
     snackbar-component
@@ -6,5 +11,54 @@ demo-wrapper
         left: initial !important;
         transform: none !important;
         position: relative !important;
+    }
+
+    demo-buttons
+    {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+        margin-bottom: 2rem;
+
+        button
+        {
+            display: inline-block;
+            height: 2.25rem;
+            line-height: 2.125rem;
+            padding: 0 1rem;
+            border-radius: 0.125rem;
+            border-width: 1px;
+            border-style: solid;
+            text-transform: uppercase;
+            font-weight: 500;
+            user-select: none;
+            cursor: pointer;
+            font-size: 0.875rem;
+            min-width: 5rem;
+            transition: background-color 75ms ease;
+            margin-right: 1rem;
+
+            &:last-child
+            {
+                margin-right: 0;
+            }
+        
+            // Colors
+            border-color: $primary;
+            background-color: $primary;
+            color: $white;
+        
+            &:hover
+            {
+                background-color: $primary-hover;
+                border-color: $primary-hover;
+            }
+        
+            &:active
+            {
+                background-color: $primary-active;
+                border-color: $primary-active;
+            }
+        }
     }
 }
