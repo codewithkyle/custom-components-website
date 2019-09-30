@@ -10,7 +10,7 @@
 			"button": {
 				"label": "View Menu",
 				"link": "https://components.codewithkyle.com/",
-				"newTab": true
+				"newTab": false
 			}
 		}
 	]

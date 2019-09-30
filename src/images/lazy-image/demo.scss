@@ -1,0 +1,13 @@
+lazy-image-component
+{
+    width: 620px;
+
+    &::before
+	{
+		content:"";
+		display: block;
+		width: 100%;
+		visibility: hidden;
+		padding-top: unquote((9 / 16) * 100 + '%');
+	}
+}
