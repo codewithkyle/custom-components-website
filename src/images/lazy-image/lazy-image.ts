@@ -133,8 +133,9 @@ class LazyImageComponent extends HTMLElement
         {
 			console.error('Missing image element');
             return;
-        }
-
+		}
+		
+		this.setAttribute('state', 'unseen');
         this.getSources();
 
         if ('IntersectionObserver' in window)
