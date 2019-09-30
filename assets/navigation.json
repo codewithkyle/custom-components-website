@@ -6,6 +6,9 @@
 		"solid-primary",
 		"text-primary"
 	],
+	"carousels": [
+		"fading-carousel"
+	],
 	"checkbox-inputs": [
 		"checkbox",
 		"lightswitch"

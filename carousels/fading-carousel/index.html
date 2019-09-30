@@ -137,19 +137,39 @@
                 <demo-wrapper>
                     <!-- Demo HTML -->
                     <script type="module">
-	stylesheets = [...stylesheets, 'checkbox-inputs/lightswitch'];
+	stylesheets = [...stylesheets, 'carousels/fading-carousel'];
+</script>
+<script type="module">
+	components = [...components, 'carousels/fading-carousel'];
 </script>
 
-<lightswitch-component>
-	<input type="checkbox" id="lightswitch-component" />
-	<label for="lightswitch-component">
-		<lightswitch-icon aria-hidden="true">
-			<lightswitch-track></lightswitch-track>
-			<lightswitch-knob></lightswitch-knob>
-		</lightswitch-icon>
-		<span>Click to toggle</span>
-	</label>
-</lightswitch-component>
+<fading-carousel>
+	<carousel-slides>
+		<carousel-slide class="is-active">
+			<img src="https://images.unsplash.com/photo-1569832850505-d2c46e10eca7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80" alt="a girl sitting in the middle of a two lane road">
+			<slide-content>
+				<h1>Slide heading</h1>
+				<h2>Slide subheading</h2>
+				<a href="javascript:void(0);">Button</a>
+			</slide-content>
+		</carousel-slide>
+		<carousel-slide>
+			<img src="https://images.unsplash.com/photo-1569684533256-5ccb7e30377f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3334&q=80" alt="a wet bricked road city street at dusk">
+			<slide-content>
+				<h1>Slide heading</h1>
+				<h2>Slide subheading</h2>
+			</slide-content>
+		</carousel-slide>
+		<carousel-slide>
+			<img src="https://images.unsplash.com/photo-1569701935321-bca05910b451?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3304&q=80" alt="a black and white photo of an african american male sitting to the right of a Medeli keyboard in between two rows of storage units">
+		</carousel-slide>
+	</carousel-slides>
+	<carousel-controls>
+		<carousel-control class="is-active" role="button" aria-label="switch to slide 1" data-index="0" tabindex="1"></carousel-control>
+		<carousel-control role="button" aria-label="switch to slide 2" data-index="1" tabindex="2"></carousel-control>
+		<carousel-control role="button" aria-label="switch to slide 3" data-index="2" tabindex="3"></carousel-control>
+	</carousel-controls>
+</fading-carousel>
                 </demo-wrapper>
             </demo-view>
             <source-view-component>
