@@ -1,0 +1,42 @@
+$font: #333333;
+$primary: #4a99ff;
+
+breadcrumb-trail
+{
+	display: inline-block;
+
+	a
+	{
+		color: rgba($font, 0.6);
+		margin-bottom: 0.5rem;
+		display: inline-flex;
+		flex-flow: row nowrap;
+		align-items: center;
+		transition: color 75ms ease-in-out;
+
+		svg
+		{
+			margin-left: 6px;
+			width: 14px;
+			height: 14px;
+			display: inline-block;
+			color: rgba($font, 0.3);
+			transform: translateY(1px);
+		}
+
+		&:last-of-type
+		{
+			color: rgba($primary, 0.87) !important;
+		}
+
+		&:hover
+		{
+			color: rgba($font, 0.87);
+		}
+
+		&:active
+		{
+			color: $primary;
+		}
+	}
+}

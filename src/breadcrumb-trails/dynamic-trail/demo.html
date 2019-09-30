@@ -1,0 +1,22 @@
+<button-wrapper>
+    <button class="js-add-page">Add Page</button>
+    <button class="js-remove-page">Remove Page</button>
+</button-wrapper>
+<script defer>
+    let addPageButton = document.body.querySelector('.js-add-page');
+    let removePageButton = document.body.querySelector('.js-remove-page');
+    let pageNumber = 3;
+    addPageButton.addEventListener('click', () => {
+        const newLink = document.createElement('a');
+        newLink.href = 'javascript:void(0);';
+        newLink.innerText = `Page ${ pageNumber }`;
+        let breadcrumbTrail = document.body.querySelector('breadcrumb-trail');
+        breadcrumbTrail.appendChild(newLink);
+        pageNumber++;
+    });
+    removePageButton.addEventListener('click', () => {
+        pageNumber--;
+        const links = Array.from(document.body.querySelectorAll('breadcrumb-trail a'));
+        links[links.length - 1].remove();
+    });
+</script>

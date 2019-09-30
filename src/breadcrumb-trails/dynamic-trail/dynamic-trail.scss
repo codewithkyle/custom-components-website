@@ -1,0 +1,51 @@
+$font: #333333;
+$primary: #4a99ff;
+
+breadcrumb-trail
+{
+	display: inline-block;
+	font-size: 0;
+
+	a
+	{
+		font-size: 1rem;
+		color: rgba($font, 0.6);
+		margin-bottom: 0.5rem;
+		margin-right: 1.5rem;
+		transition: color 75ms ease-in-out;
+
+		&::after
+		{
+			content: "/";
+			position: absolute;
+			left: calc(100% + 8px);
+			top: 50%;
+			width: 14px;
+			height: 14px;
+			display: inline-block;
+			color: rgba($font, 0.3);
+			transform: translateY(-52%);
+		}
+
+		&:last-of-type
+		{
+			color: rgba($primary, 0.87) !important;
+
+			&::after
+			{
+				display: none;
+				margin-right: 0;
+			}
+		}
+
+		&:hover
+		{
+			color: rgba($font, 0.87);
+		}
+
+		&:active
+		{
+			color: $primary;
+		}
+	}
+}
