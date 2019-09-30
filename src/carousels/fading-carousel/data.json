@@ -1,0 +1,13 @@
+{
+	"slides": [
+		{
+			"headline": "Join us for Taco Tuesdays every week!",
+			"subheadline": "Wednesday through Saturday from 1 to 4pm",
+			"button": {
+				"label": "View Menu",
+				"link": "https://components.codewithkyle.com/",
+				"newTab": true
+			}
+		}
+	]
+}
