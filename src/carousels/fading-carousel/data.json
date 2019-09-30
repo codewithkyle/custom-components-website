@@ -3,6 +3,10 @@
 		{
 			"headline": "Join us for Taco Tuesdays every week!",
 			"subheadline": "Wednesday through Saturday from 1 to 4pm",
+			"image": {
+				"src": "./assets/image/big-ol-taco.jpg",
+				"alt": "a wide shot of an old rusty taco truck parked in a tall open shrubland"
+			},
 			"button": {
 				"label": "View Menu",
 				"link": "https://components.codewithkyle.com/",
