@@ -24,6 +24,11 @@
 	"images": [
 		"lazy-image"
 	],
+	"loaders": [
+		"circle-rail-spinner",
+		"linear-rail-loader",
+		"svg-circle-spinner"
+	],
 	"radio-inputs": [
 		"radio"
 	],

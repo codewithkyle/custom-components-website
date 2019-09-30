@@ -137,10 +137,13 @@
                 <demo-wrapper>
                     <!-- Demo HTML -->
                     <script type="module">
-    stylesheets = [...stylesheets, 'buttons/raised-solid-primary'];
+	stylesheets = [...stylesheets, 'loaders/linear-rail-loader'];
 </script>
 
-<raised-solid-primary role="button" tabindex="0" aria-pressed="false">raised solid button</raised-solid-primary>
+<linear-rail-loader role="alert" aria-busy="true" aria-live="polite">
+	<bar-one aria-hidden="true"></bar-one>
+	<bar-two aria-hidden="true"></bar-two>
+</linear-rail-loader>
                 </demo-wrapper>
             </demo-view>
             <source-view-component>

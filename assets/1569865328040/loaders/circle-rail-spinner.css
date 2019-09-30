@@ -1,0 +1,2 @@
+/** src/loaders/circle-rail-spinner/circle-rail-spinner.scss  */
+circle-rail-spinner{display:block;height:64px;width:64px;box-sizing:border-box;margin:0 auto 1rem;border:4px #dce1e4 solid;border-top:4px #f779f0 solid;border-radius:50%;animation:circleRailSpinner 1000ms infinite linear}circle-rail-spinner.-inline{display:inline-block;vertical-align:middle;margin:0}@keyframes circleRailSpinner{from{transform:rotate(0deg)}to{transform:rotate(359deg)}}
