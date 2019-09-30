@@ -1,7 +1,8 @@
-$width: 16;
-$height: 9;
+$carousel-width: 16;
+$carousel-height: 9;
 $control-color: #fff;
 $font-color: #fff;
+$background: #333;
 
 fading-carousel
 {
@@ -15,7 +16,7 @@ fading-carousel
 		display: block;
 		width: 100%;
 		visibility: hidden;
-		padding-top: unquote(($height / $width) * 100 + '%');
+		padding-top: unquote(($carousel-height / $carousel-width) * 100 + '%');
 	}
 
 	carousel-slides
@@ -41,6 +42,7 @@ fading-carousel
 			align-items: center;
 			justify-content: center;
 			flex-flow: column wrap;
+			background-color: $background;
 
 			&.is-active
 			{
@@ -57,11 +59,13 @@ fading-carousel
 				height: 100%;
 				object-fit: cover;
 				user-select: none;
+				z-index: 1;
 			}
 
 			slide-content
 			{
 				text-align: center;
+				z-index: 2;
 
 				h1,
 				h2
