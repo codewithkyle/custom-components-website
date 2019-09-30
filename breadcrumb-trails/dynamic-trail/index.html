@@ -135,18 +135,37 @@
             <demo-view class="is-loading">
                 <circle-loader></circle-loader>
                 <demo-wrapper>
-                    <!-- Demo HTML -->
-                    <script type="module">
-	stylesheets = [...stylesheets, 'textareas/outline'];
+                    <button-wrapper>
+    <button class="js-add-page">Add Page</button>
+    <button class="js-remove-page">Remove Page</button>
+</button-wrapper>
+<script defer>
+    let addPageButton = document.body.querySelector('.js-add-page');
+    let removePageButton = document.body.querySelector('.js-remove-page');
+    let pageNumber = 3;
+    addPageButton.addEventListener('click', () => {
+        const newLink = document.createElement('a');
+        newLink.href = 'javascript:void(0);';
+        newLink.innerText = `Page ${ pageNumber }`;
+        let breadcrumbTrail = document.body.querySelector('breadcrumb-trail');
+        breadcrumbTrail.appendChild(newLink);
+        pageNumber++;
+    });
+    removePageButton.addEventListener('click', () => {
+        pageNumber--;
+        const links = Array.from(document.body.querySelectorAll('breadcrumb-trail a'));
+        links[links.length - 1].remove();
+    });
 </script>
-<script type="module">
-	components = [...components, 'textareas/outline'];
+                    <script type="module">
+	stylesheets = [...stylesheets, 'breadcrumb-trails/dynamic-trail'];
 </script>
 
-<outline-textarea-component>
-	<textarea id="outline-textarea-component" rows="5" required></textarea>
-	<label for="outline-textarea-component">Message</label>
-</outline-textarea-component>
+<breadcrumb-trail>
+	<a href="javascript:void(0);">Home</a>
+	<a href="javascript:void(0);">Page 1</a>
+	<a href="javascript:void(0);">Page 2</a>
+</breadcrumb-trail>
                 </demo-wrapper>
             </demo-view>
             <source-view-component>

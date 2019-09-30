@@ -1,4 +1,8 @@
 {
+	"breadcrumb-trails": [
+		"dynamic-trail",
+		"svg-trail"
+	],
 	"buttons": [
 		"alt-outline-primary",
 		"outline-primary",
