@@ -107,6 +107,13 @@ class Application
 
     private finishLoading() : void
     {
+        try
+        {
+            // @ts-ignore
+            window.notificationManager = new NotificationManager();
+        }
+        catch {}
+
         setTimeout(()=>{
             document.documentElement.classList.remove('is-loading');
             this._demoView.classList.remove('is-loading');

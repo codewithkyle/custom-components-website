@@ -9,7 +9,12 @@
   "author": "Kyle Andrews",
   "license": "MIT",
   "homepage": "https://github.com/codewithkyle/sandbox-framework",
-  "webDependencies": [],
+  "webDependencies": [
+    {
+      "package": "@codewithkyle/notifyjs",
+      "import": "{ NotificationManager }"
+    }
+  ],
   "scripts": {
     "build": "npm run compile && npm run preview",
     "compile": "tsc && node ./compiler.config.js",
@@ -31,5 +36,8 @@
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "typescript": "^3.6.2"
+  },
+  "dependencies": {
+    "@codewithkyle/notifyjs": "^0.2.0"
   }
 }
