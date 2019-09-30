@@ -1,0 +1,38 @@
+$spinner-width: 64px;
+$spinner-height: 64px;
+$border-width: 4px;
+$border-color: #f779f0;
+$rail-color: hsl(204, 13%, 88%);
+$spinner-speed: 1000ms;
+
+circle-rail-spinner
+{
+	display: block;
+	height: $spinner-height;
+	width: $spinner-width;
+	box-sizing: border-box;
+	margin: 0 auto 1rem;
+	border: $border-width $rail-color solid;
+	border-top: $border-width $border-color solid;
+	border-radius: 50%;
+	animation: circleRailSpinner $spinner-speed infinite linear;
+
+	&.-inline
+	{
+		display: inline-block;
+		vertical-align: middle;
+		margin: 0;
+	}
+}
+
+@keyframes circleRailSpinner
+{
+	from
+	{
+		transform: rotate(0deg);
+	}
+	to
+	{
+		transform: rotate(359deg);
+	}
+}
