@@ -24,42 +24,44 @@ demo2.addEventListener('click', (e)=>{
     });
 });
 
-class Button3
-{
-    constructor()
+(()=>{
+    class Button3
     {
-        this.variable = 'Hello world!';
-        this.demo3 = document.body.querySelector('.js-demo-3');
-        this.demo3.addEventListener('click', (e)=>{
-            notificationManager.notify({
-                message: 'This notification has a callback',
-                closeable: true,
-                duration: Infinity,
-                buttons: [
-                    {
-                        label: 'alert',
-                        callback: this.alertUser.bind(this),
-                    },
-                    {
-                        label: 'reload',
-                        callback: this.reloadPage,
-                    }
-                ]
+        constructor()
+        {
+            this.variable = 'Hello world!';
+            this.demo3 = document.body.querySelector('.js-demo-3');
+            this.demo3.addEventListener('click', (e)=>{
+                notificationManager.notify({
+                    message: 'This notification has a callback',
+                    closeable: true,
+                    duration: Infinity,
+                    buttons: [
+                        {
+                            label: 'alert',
+                            callback: this.alertUser.bind(this),
+                        },
+                        {
+                            label: 'reload',
+                            callback: this.reloadPage,
+                        }
+                    ]
+                });
             });
-        });
-    }
+        }
 
-    reloadPage()
-    {
-        window.location.reload();
-    }
+        reloadPage()
+        {
+            window.location.reload();
+        }
 
-    alertUser()
-    {
-        window.alert(this.variable)
+        alertUser()
+        {
+            window.alert(this.variable)
+        }
     }
-}
 new Button3();
+})();
 var demo4 = document.body.querySelector('.js-demo-4');
 demo4.addEventListener('click', (e)=>{
     notificationManager.notify({

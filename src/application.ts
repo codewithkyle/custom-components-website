@@ -53,7 +53,7 @@ class Application
         }
     }
 
-    private fetchResources(fileListArray:Array<string>, element:string, filetype:string) : Promise<any>
+    private fetchResources(fileListArray:Array<string>, element:string, filetype:string, component:boolean = false) : Promise<any>
     {
         return new Promise((resolve) => {
             if (fileListArray.length === 0)
@@ -71,6 +71,10 @@ class Application
                 {
                     el = document.createElement(element);
                     el.setAttribute('file', `${ fileListArray[0] }.${ filetype }`);
+                    if (component)
+                    {
+                        el.setAttribute('component', 'true');
+                    }
                     document.head.append(el);
                     this.fetchFile(el, fileListArray[0], filetype)
                     .then(() => {
@@ -126,12 +130,31 @@ class Application
         }
     }
 
+    private clearStylesheets() : Promise<{}>
+    {
+        return new Promise((resolve) => {
+            const stylesheets = Array.from(document.head.querySelectorAll('link[component]'));
+            if (!stylesheets.length)
+            {
+                resolve();
+            }
+
+            for (let i = 0; i < stylesheets.length; i++)
+            {
+                stylesheets[i].remove();
+            }
+
+            resolve();
+        });
+    }
+
     private async run()
     {
         try
         {
+            await this.clearStylesheets();
             await this.fetchResources(window.criticalCss, 'link', 'css');
-            await this.fetchResources(window.stylesheets, 'link', 'css');
+            await this.fetchResources(window.stylesheets, 'link', 'css', true);
             await this.fetchResources(window.modules, 'script', 'js');
             await this.fetchResources(window.criticalComponents, 'script', 'js');
             await this.fetchResources(window.components, 'script', 'js');
