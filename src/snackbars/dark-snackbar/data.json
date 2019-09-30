@@ -1,3 +1,16 @@
 {
-	"sample": "hello world"
+	"notification": {
+		"message": "This is the notifications message.",
+		"duration": "6",
+		"closeable": true,
+		"buttons": [
+			{
+				"label": "Reload",
+				"callback": "function()",
+				"ariaLabel": "reload the page"
+			}
+		],
+		"position": "top right",
+		"force": true
+	}
 }

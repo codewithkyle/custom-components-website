@@ -1,3 +1,3 @@
 # dark snackbar component
 
-A basic description of the web component.
+This component is using [Notifyjs](https://github.com/codewithkyle/notifyjs) to generate and manage the notifications.
