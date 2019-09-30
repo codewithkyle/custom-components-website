@@ -2,6 +2,7 @@ class NavigationManager {
     loadComponent(href) {
         const oldDemoView = document.body.querySelector('demo-view');
         oldDemoView.classList.add('is-loading');
+        oldDemoView.innerHTML = '';
         fetch(href)
             .then(request => request.text())
             .then(response => {

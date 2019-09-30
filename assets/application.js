@@ -43,7 +43,7 @@ class Application {
             }
         });
     }
-    fetchResources(fileListArray, element, filetype) {
+    fetchResources(fileListArray, element, filetype, component = false) {
         return new Promise((resolve) => {
             if (fileListArray.length === 0) {
                 resolve();
@@ -55,6 +55,9 @@ class Application {
                 if (!el) {
                     el = document.createElement(element);
                     el.setAttribute('file', `${fileListArray[0]}.${filetype}`);
+                    if (component) {
+                        el.setAttribute('component', 'true');
+                    }
                     document.head.append(el);
                     this.fetchFile(el, fileListArray[0], filetype)
                         .then(() => {
@@ -98,11 +101,24 @@ class Application {
             // navigationManager.loadComponent(window.location.href.replace(/\/$/, ''));
         }
     }
+    clearStylesheets() {
+        return new Promise((resolve) => {
+            const stylesheets = Array.from(document.head.querySelectorAll('link[component]'));
+            if (!stylesheets.length) {
+                resolve();
+            }
+            for (let i = 0; i < stylesheets.length; i++) {
+                stylesheets[i].remove();
+            }
+            resolve();
+        });
+    }
     run() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                yield this.clearStylesheets();
                 yield this.fetchResources(window.criticalCss, 'link', 'css');
-                yield this.fetchResources(window.stylesheets, 'link', 'css');
+                yield this.fetchResources(window.stylesheets, 'link', 'css', true);
                 yield this.fetchResources(window.modules, 'script', 'js');
                 yield this.fetchResources(window.criticalComponents, 'script', 'js');
                 yield this.fetchResources(window.components, 'script', 'js');

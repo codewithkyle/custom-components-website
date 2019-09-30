@@ -26,7 +26,8 @@
 		"solid"
 	],
 	"snackbars": [
-		"dark-snackbar"
+		"dark-snackbar",
+		"light-snackbar"
 	],
 	"text-inputs": [
 		"outline",
