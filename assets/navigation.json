@@ -21,6 +21,9 @@
 		"form",
 		"grid"
 	],
+	"images": [
+		"lazy-image"
+	],
 	"radio-inputs": [
 		"radio"
 	],
