@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="is-loading" data-cachebust="1569867866799">
+<html lang="en" class="is-loading" data-cachebust="1569868102897">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -139,10 +139,10 @@
     <button class="js-add-page">Add Page</button>
     <button class="js-remove-page">Remove Page</button>
 </button-wrapper>
-<script defer>
-    let addPageButton = document.body.querySelector('.js-add-page');
-    let removePageButton = document.body.querySelector('.js-remove-page');
-    let pageNumber = 3;
+<script type="module">
+    var addPageButton = document.body.querySelector('.js-add-page');
+    var removePageButton = document.body.querySelector('.js-remove-page');
+    var pageNumber = 3;
     addPageButton.addEventListener('click', () => {
         const newLink = document.createElement('a');
         newLink.href = 'javascript:void(0);';
@@ -153,7 +153,15 @@
     });
     removePageButton.addEventListener('click', () => {
         pageNumber--;
+        if (pageNumber < 0)
+        {
+            pageNumber = 0;
+        }
         const links = Array.from(document.body.querySelectorAll('breadcrumb-trail a'));
+        if (links.length === 0)
+        {
+            return;
+        }
         links[links.length - 1].remove();
     });
 </script>
