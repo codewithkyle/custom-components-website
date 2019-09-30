@@ -84,6 +84,11 @@ class Application {
         });
     }
     finishLoading() {
+        try {
+            // @ts-ignore
+            window.notificationManager = new NotificationManager();
+        }
+        catch (_a) { }
         setTimeout(() => {
             document.documentElement.classList.remove('is-loading');
             this._demoView.classList.remove('is-loading');
