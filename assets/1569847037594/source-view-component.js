@@ -182,6 +182,17 @@ class SourceViewComponent extends HTMLElement {
     }
     connectedCallback() {
         window.addEventListener('page-load', this.handlePageLoadEvent);
+        let pathname = window.location.pathname.replace(/^[\/]|[\/]$/g, '').trim().toLowerCase();
+        pathname = pathname.split('/');
+        if (pathname.length === 2) {
+            const initialEvent = new CustomEvent('initial', {
+                detail: {
+                    category: pathname[0],
+                    component: pathname[1]
+                }
+            });
+            this.load(initialEvent);
+        }
     }
 }
 customElements.define('source-view-component', SourceViewComponent);
