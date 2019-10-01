@@ -4,18 +4,14 @@
 		"svg-trail"
 	],
 	"buttons": [
-		"alt-outline-primary",
-		"outline-primary",
-		"raised-solid-primary",
-		"solid-primary",
-		"text-primary"
+		"alt-outline",
+		"outline",
+		"raised-solid",
+		"solid",
+		"text"
 	],
 	"carousels": [
 		"fading-carousel"
-	],
-	"checkbox-inputs": [
-		"checkbox",
-		"lightswitch"
 	],
 	"fieldsets": [
 		"outline",
@@ -28,17 +24,21 @@
 	"images": [
 		"lazy-image"
 	],
+	"inputs": [
+		"checkbox",
+		"lightswitch",
+		"outline-select",
+		"outline-text",
+		"outline-textarea",
+		"radio",
+		"solid-select",
+		"solid-text",
+		"solid-textarea"
+	],
 	"loaders": [
 		"circle-rail-spinner",
 		"linear-rail-loader",
 		"svg-circle-spinner"
-	],
-	"radio-inputs": [
-		"radio"
-	],
-	"select-inputs": [
-		"outline",
-		"solid"
 	],
 	"snackbars": [
 		"dark-snackbar",
@@ -46,13 +46,5 @@
 	],
 	"tabs": [
 		"material-tabs"
-	],
-	"text-inputs": [
-		"outline",
-		"solid"
-	],
-	"textareas": [
-		"outline",
-		"solid"
 	]
 }
