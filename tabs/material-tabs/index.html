@@ -137,14 +137,30 @@
                 <demo-wrapper>
                     <!-- Demo HTML -->
                     <script type="module">
-	stylesheets = [...stylesheets, 'loaders/svg-circle-spinner'];
+	stylesheets = [...stylesheets, 'tabs/material-tabs'];
+</script>
+<script type="module">
+	components = [...components, 'tabs/material-tabs'];
 </script>
 
-<svg-circle-spinner role="alert" aria-busy="true" aria-live="polite">
-	<svg viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-		<circle cx="33" cy="33" r="30"></circle>
-	</svg>
-</svg-circle-spinner>
+<tabs-component>
+	<tabs-wrapper>
+		<button data-index="0" class="is-active">Tab One</button>
+		<button data-index="1">Tab Two</button>
+		<button data-index="2">Tab Three</button>
+		<button data-index="3">Tab Four</button>
+		<button data-index="4">Tab Five</button>
+		<button data-index="5">Tab Six</button>
+	</tabs-wrapper>
+	<tabs-view>
+		<tab-view data-index="0" class="is-active">Tab One Content</tab-view>
+		<tab-view data-index="0">Tab Two Content</tab-view>
+		<tab-view data-index="0">Tab Three Content</tab-view>
+		<tab-view data-index="0">Tab Four Content</tab-view>
+		<tab-view data-index="0">Tab Five Content</tab-view>
+		<tab-view data-index="0">Tab Six Content</tab-view>
+	</tabs-view>
+</tabs-component>
                 </demo-wrapper>
             </demo-view>
             <source-view-component>
