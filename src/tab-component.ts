@@ -10,7 +10,7 @@ class TabComponent extends HTMLElement
         if (e.detail.view === this.dataset.view)
         {
             this._view.classList.remove('is-hidden');
-            // hljs.highlightBlock(this._view);
+            hljs.highlightBlock(this._view);
             this.classList.add('is-active');
         }
         else

@@ -4,7 +4,7 @@ The card carousel component has a simple HTML structure. Only the card-carousel-
 
 ```
 <card-carousel-component>
-	<cta-card>
+    <cta-card>
         ...snip...
     </cta-card>
 </card-carousel-component>

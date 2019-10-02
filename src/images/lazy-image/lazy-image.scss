@@ -1,38 +1,38 @@
 lazy-image-component
 {
-	display: inline-block;
-	overflow: hidden;
-	position: relative;
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
 
-	&[state=unseen]
-	{
-		img
-		{
-			filter: blur(16px);
-			transform: scale(1.1);
-		}
-	}
+    &[state=unseen]
+    {
+        img
+        {
+            filter: blur(16px);
+            transform: scale(1.1);
+        }
+    }
 
-	/** &[state=loading] { } */
+    /** &[state=loading] { } */
 
-	&[state=loaded]
-	{
-		img
-		{
-			filter: blur(0);
-			transform: scale(1);
-		}
-	}
+    &[state=loaded]
+    {
+        img
+        {
+            filter: blur(0);
+            transform: scale(1);
+        }
+    }
 
-	img
-	{
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		transform-origin: center;
-		object-fit: cover;
-		transition: all 300ms ease-out;
-	}
+    img
+    {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transform-origin: center;
+        object-fit: cover;
+        transition: all 300ms ease-out;
+    }
 }

@@ -5,131 +5,131 @@ $font: #333;
 
 tabs-component
 {
-	width: 100%;
-	display: inline-block;
-	position: relative;
+    width: 100%;
+    display: inline-block;
+    position: relative;
 
-	tabs-wrapper
-	{
-		display: flex;
-		align-items: center;
-		flex-flow: row nowrap;
-		flex: none;
-		overflow-x: auto;
-		height: 3.5rem;
-		white-space: nowrap;
-		font-size: 0;
-		scroll-snap-type: x mandatory;
+    tabs-wrapper
+    {
+        display: flex;
+        align-items: center;
+        flex-flow: row nowrap;
+        flex: none;
+        overflow-x: auto;
+        height: 3.5rem;
+        white-space: nowrap;
+        font-size: 0;
+        scroll-snap-type: x mandatory;
 
-		button
-		{
-			height: 3rem;
-			min-width: 6rem;
-			padding: 0 1.5rem;
-			cursor: pointer;
-			line-height: 3rem;
-			font-size: 0.875rem;
-			font-weight: 500;
-			text-transform: uppercase;
-			user-select: none;
-			color: rgba($font, 0.6);
-			display: inline-flex;
-			flex: 1 0 auto;
-			transition: all 150ms ease-in-out;
-			scroll-snap-align: center;
+        button
+        {
+            height: 3rem;
+            min-width: 6rem;
+            padding: 0 1.5rem;
+            cursor: pointer;
+            line-height: 3rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            user-select: none;
+            color: rgba($font, 0.6);
+            display: inline-flex;
+            flex: 1 0 auto;
+            transition: all 150ms ease-in-out;
+            scroll-snap-align: center;
 
-			&::before
-			{
-				content: "";
-				display: inline-block;
-				position: absolute;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-				background-color: transparent;
-				transform-origin: center;
-				transform: scale(0.3);
-				transition: all 75ms ease-out;
-			}
+            &::before
+            {
+                content: "";
+                display: inline-block;
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: transparent;
+                transform-origin: center;
+                transform: scale(0.3);
+                transition: all 75ms ease-out;
+            }
 
-			&::after
-			{
-				content:"";
-				display: inline-block;
-				width: 100%;
-				height: 2px;
-				transform: scaleY(0);
-				transform-origin: center;
-				position: absolute;
-				top: 100%;
-				left: 0;
-				background-color: $primary;
-				transition: all 75ms ease-in-out;
-			}
+            &::after
+            {
+                content:"";
+                display: inline-block;
+                width: 100%;
+                height: 2px;
+                transform: scaleY(0);
+                transform-origin: center;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background-color: $primary;
+                transition: all 75ms ease-in-out;
+            }
 
-			&:hover
-			{
-				color: rgba($font, 0.87);
+            &:hover
+            {
+                color: rgba($font, 0.87);
 
-				&::before
-				{
-					transform: scale(1);
-					background-color: $primary-hover-opacity;
-					transition: transform 175ms cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 75ms ease;
-				}
-			}
+                &::before
+                {
+                    transform: scale(1);
+                    background-color: $primary-hover-opacity;
+                    transition: transform 175ms cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 75ms ease;
+                }
+            }
 
-			&:active
-			{
-				color: $primary;
+            &:active
+            {
+                color: $primary;
 
-				&::before
-				{
-					transform: scale(1);
-					background-color: $primary-active-opacity;
-					transition: background-color 75ms ease-in-out;
-				}
+                &::before
+                {
+                    transform: scale(1);
+                    background-color: $primary-active-opacity;
+                    transition: background-color 75ms ease-in-out;
+                }
 
-				&::after
-				{
-					transform: scaleY(1);
-				}
-			}
+                &::after
+                {
+                    transform: scaleY(1);
+                }
+            }
 
-			&.is-active
-			{
-				color: $primary;
+            &.is-active
+            {
+                color: $primary;
 
-				&::before
-				{
-					transform: scale(1);
-					background-color: $primary-active-opacity;
-				}
+                &::before
+                {
+                    transform: scale(1);
+                    background-color: $primary-active-opacity;
+                }
 
-				&::after
-				{
-					transform: scaleY(1);
-				}
-			}
-		}
-	}
+                &::after
+                {
+                    transform: scaleY(1);
+                }
+            }
+        }
+    }
 
-	tabs-view
-	{
-		display: block;
-		width: 100%;
-		padding-top: 1rem;
+    tabs-view
+    {
+        display: block;
+        width: 100%;
+        padding-top: 1rem;
 
-		tab-view
-		{
-			display: none;
+        tab-view
+        {
+            display: none;
 
-			&.is-active
-			{
-				display: block;
-				width: 100%;
-			}
-		}
-	}
+            &.is-active
+            {
+                display: block;
+                width: 100%;
+            }
+        }
+    }
 }

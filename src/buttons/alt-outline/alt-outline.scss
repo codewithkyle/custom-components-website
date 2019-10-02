@@ -6,35 +6,35 @@ $grey-3: #879099;
 
 alt-outline-primary
 {
-	display: inline-block;
-	height: 2.25rem;
-	line-height: 2.125rem;
-	padding: 0 1rem;
-	border-radius: 0.125rem;
-	border-width: 1px;
-	border-style: solid;
-	text-transform: uppercase;
-	font-weight: 500;
-	user-select: none;
-	cursor: pointer;
-	font-size: 0.875rem;
-	min-width: 5rem;
-	background-color: transparent;
-	transition: background-color 75ms ease;
+    display: inline-block;
+    height: 2.25rem;
+    line-height: 2.125rem;
+    padding: 0 1rem;
+    border-radius: 0.125rem;
+    border-width: 1px;
+    border-style: solid;
+    text-transform: uppercase;
+    font-weight: 500;
+    user-select: none;
+    cursor: pointer;
+    font-size: 0.875rem;
+    min-width: 5rem;
+    background-color: transparent;
+    transition: background-color 75ms ease;
 
-	// Colors
-	border-color: $grey-2;
-	color: $primary;
+    // Colors
+    border-color: $grey-2;
+    color: $primary;
 
-	&:hover
-	{
-		background-color: $primary-hover-opacity;
-		border-color: $grey-3;
-	}
+    &:hover
+    {
+        background-color: $primary-hover-opacity;
+        border-color: $grey-3;
+    }
 
-	&:active
-	{
-		background-color: $primary-hover-opacity;
-		border-color: $primary;
-	}
+    &:active
+    {
+        background-color: $primary-hover-opacity;
+        border-color: $primary;
+    }
 }

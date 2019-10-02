@@ -6,12 +6,12 @@ interface ImageSource
 
 class LazyImageComponent extends HTMLElement
 {
-	private _io:IntersectionObserver;
+    private _io:IntersectionObserver;
     private _img : HTMLImageElement;
     private _sources : Array<ImageSource>;
-	private _hasLoaded : boolean;
-	
-	constructor()
+    private _hasLoaded : boolean;
+    
+    constructor()
     {
         super();
 
@@ -19,20 +19,20 @@ class LazyImageComponent extends HTMLElement
         this._img = this.querySelector('img');
         this._sources = [];
         this._hasLoaded = false;
-	}
-	
-	private handleResizeEvent:EventListener = this.windowResized.bind(this);
+    }
+    
+    private handleResizeEvent:EventListener = this.windowResized.bind(this);
     private onIntersection:IntersectionObserverCallback = this.manageIntersection.bind(this);
-	private loadEvent:EventListener = this.imageHasLoaded.bind(this);
+    private loadEvent:EventListener = this.imageHasLoaded.bind(this);
 
-	private imageHasLoaded() : void
+    private imageHasLoaded() : void
     {
-		this.setAttribute('state', 'loaded');
+        this.setAttribute('state', 'loaded');
         this._img.removeEventListener('load', this.loadEvent);
         this._hasLoaded = true;
-	}
-	
-	private lazyLoadImage() : void
+    }
+    
+    private lazyLoadImage() : void
     {
         this.setAttribute('state', 'loading');
         const image = this.querySelector('img');
@@ -87,13 +87,13 @@ class LazyImageComponent extends HTMLElement
 
             if (this._img.src !== newImageSrc)
             {
-				this._img.addEventListener('load', this.loadEvent);
+                this._img.addEventListener('load', this.loadEvent);
                 this._img.src = newImageSrc;
             }
         }
     }
-	
-	private manageIntersection(entires:Array<IntersectionObserverEntry>) : void
+    
+    private manageIntersection(entires:Array<IntersectionObserverEntry>) : void
     {
         for (let i = 0; i < entires.length; i++)
         {
@@ -104,7 +104,7 @@ class LazyImageComponent extends HTMLElement
         }
     }
 
-	private windowResized() : void
+    private windowResized() : void
     {
         if (this._hasLoaded)
         {
@@ -112,7 +112,7 @@ class LazyImageComponent extends HTMLElement
         }
     }
 
-	private getSources() : void
+    private getSources() : void
     {
         const sources = this._img.dataset.srcset.replace(/,(\s?)/g, '&&');
         const sourceSets = sources.split('&&');
@@ -125,17 +125,17 @@ class LazyImageComponent extends HTMLElement
             };
             this._sources.push(newSource);
         }
-	}
+    }
 
-	connectedCallback()
-	{
-		if (!this._img)
+    connectedCallback()
+    {
+        if (!this._img)
         {
-			console.error('Missing image element');
+            console.error('Missing image element');
             return;
-		}
-		
-		this.setAttribute('state', 'unseen');
+        }
+        
+        this.setAttribute('state', 'unseen');
         this.getSources();
 
         if ('IntersectionObserver' in window)
@@ -149,7 +149,7 @@ class LazyImageComponent extends HTMLElement
         }
 
         window.addEventListener('resize', this.handleResizeEvent, { passive: true });
-	}
+    }
 }
 
 customElements.define('lazy-image-component', LazyImageComponent);

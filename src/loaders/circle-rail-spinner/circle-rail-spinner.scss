@@ -7,32 +7,32 @@ $spinner-speed: 1000ms;
 
 circle-rail-spinner
 {
-	display: block;
-	height: $spinner-height;
-	width: $spinner-width;
-	box-sizing: border-box;
-	margin: 0 auto 1rem;
-	border: $border-width $rail-color solid;
-	border-top: $border-width $border-color solid;
-	border-radius: 50%;
-	animation: circleRailSpinner $spinner-speed infinite linear;
+    display: block;
+    height: $spinner-height;
+    width: $spinner-width;
+    box-sizing: border-box;
+    margin: 0 auto 1rem;
+    border: $border-width $rail-color solid;
+    border-top: $border-width $border-color solid;
+    border-radius: 50%;
+    animation: circleRailSpinner $spinner-speed infinite linear;
 
-	&.-inline
-	{
-		display: inline-block;
-		vertical-align: middle;
-		margin: 0;
-	}
+    &.-inline
+    {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0;
+    }
 }
 
 @keyframes circleRailSpinner
 {
-	from
-	{
-		transform: rotate(0deg);
-	}
-	to
-	{
-		transform: rotate(359deg);
-	}
+    from
+    {
+        transform: rotate(0deg);
+    }
+    to
+    {
+        transform: rotate(359deg);
+    }
 }

@@ -8,62 +8,62 @@ $cap: round;
 
 svg-circle-spinner
 {
-	display: block;
-	box-sizing: border-box;
-	margin: 0 auto 1rem;
+    display: block;
+    box-sizing: border-box;
+    margin: 0 auto 1rem;
 
-	&.-inline
-	{
-		display: inline-block;
-		vertical-align: middle;
-		margin: 0;
-	}
-	
-	svg
-	{
-		height: $spinner-height;
-		width: $spinner-width;
-		animation: rotator $spinner-speed linear infinite;
+    &.-inline
+    {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0;
+    }
+    
+    svg
+    {
+        height: $spinner-height;
+        width: $spinner-width;
+        animation: rotator $spinner-speed linear infinite;
 
-		circle
-		{
-			stroke-dasharray: $offset;
+        circle
+        {
+            stroke-dasharray: $offset;
             stroke-dashoffset: 0;
             transform-origin: center;
             animation: dash $spinner-speed ease-in-out infinite;
-			stroke: $stroke-color;
-			stroke-width: $stroke-width;
-			stroke-linecap: $cap;
-			fill: none;
-		}
-	}
+            stroke: $stroke-color;
+            stroke-width: $stroke-width;
+            stroke-linecap: $cap;
+            fill: none;
+        }
+    }
 }
 
 @keyframes rotator
 {
-	0%
-	{
-		transform: rotate(0deg);
-	}
-	100%
-	{
-		transform: rotate(270deg);
-	}
+    0%
+    {
+        transform: rotate(0deg);
+    }
+    100%
+    {
+        transform: rotate(270deg);
+    }
 }
 
 @keyframes dash
 {
-	0%
-	{
-		stroke-dashoffset: $offset;
-	}
-	50%
-	{
+    0%
+    {
+        stroke-dashoffset: $offset;
+    }
+    50%
+    {
         stroke-dashoffset: $offset/4;
         transform:rotate(135deg);
     }
-	100%
-	{
+    100%
+    {
         stroke-dashoffset: $offset;
         transform:rotate(450deg);
     }

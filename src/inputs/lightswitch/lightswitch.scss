@@ -6,19 +6,19 @@ $white: #fff;
 
 lightswitch-component
 {
-	display: inline-block;
-	width: 100%;
+    display: inline-block;
+    width: 100%;
 
-	input
-	{
-		position: absolute;
-		top: -9999px;
-		left: -9999px;
-		width: 0;
-		height: 0;
-		opacity: 0;
+    input
+    {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+        width: 0;
+        height: 0;
+        opacity: 0;
 
-		&:checked{
+        &:checked{
             & + label{
                 lightswitch-icon{
                     lightswitch-track{
@@ -37,51 +37,51 @@ lightswitch-component
                 }
             }
         }
-	}
-	
-	label
-	{
-		min-height: 3.5rem;
-		width: 100%;
-		min-width: 256px;
-		cursor: pointer;
-		padding-left: 3.5rem;
-		display: flex;
-		align-items: center;
+    }
+    
+    label
+    {
+        min-height: 3.5rem;
+        width: 100%;
+        min-width: 256px;
+        cursor: pointer;
+        padding-left: 3.5rem;
+        display: flex;
+        align-items: center;
         flex-flow: row nowrap;
         user-select: none;
 
-		&:hover
-		{
-			lightswitch-icon{
+        &:hover
+        {
+            lightswitch-icon{
                 lightswitch-knob{
                     &:before{
                         transform: scale(0.87);
                     }
                 }
             }
-		}
+        }
 
-		&:active
-		{
-			lightswitch-icon{
+        &:active
+        {
+            lightswitch-icon{
                 lightswitch-knob{
                     &:before{
                         transform: scale(1);
-						background-color: $primary-active-opacity;
-						transition: all 75ms ease-in-out;
+                        background-color: $primary-active-opacity;
+                        transition: all 75ms ease-in-out;
                     }
                 }
             }
-		}
+        }
 
-		lightswitch-icon{
+        lightswitch-icon{
             width: 32px;
-			height: 14px;
-			position: absolute;
-			top: 50%;
-			left: 0.25rem;
-			transform: translateY(-56%);
+            height: 14px;
+            position: absolute;
+            top: 50%;
+            left: 0.25rem;
+            transform: translateY(-56%);
 
             @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none)
             {
@@ -153,13 +153,13 @@ lightswitch-component
                     transition: all 75ms ease-in-out;
                 }
             }
-		}
-		
-		span
-		{
-			display: inline-block;
-			user-select: none;
-			line-height: 1.618;
-		}
-	}
+        }
+        
+        span
+        {
+            display: inline-block;
+            user-select: none;
+            line-height: 1.618;
+        }
+    }
 }
