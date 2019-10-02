@@ -8,8 +8,8 @@ class FadingCarousel extends HTMLElement {
         this._controls = Array.from(this.querySelectorAll('carousel-control'));
         this._callback = () => { };
         /** Carousel Config */
-        this._transitionDuration = 300; // milliseconds
-        this._slideDuration = 5; // seconds
+        this._transitionDuration = 300; /** milliseconds */
+        this._slideDuration = 5; /** seconds */
     }
     triggerSlideSwitch(e) {
         const control = e.currentTarget;
