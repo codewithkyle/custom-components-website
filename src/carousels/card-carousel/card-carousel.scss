@@ -1,7 +1,7 @@
 card-carousel-component
 {
     white-space: nowrap;
-	width: 100%;
+    width: 100%;
     overflow: scroll;
     cursor: grab !important;
     cursor: -moz-grab !important;
@@ -17,14 +17,14 @@ card-carousel-component
         cursor: -moz-grabbing !important;
         cursor: -webkit-grabbing !important;
         scroll-snap-type: none;
-	}
-	
-	cta-card
-	{
-		display: inline-block;
+    }
+    
+    cta-card
+    {
+        display: inline-block;
         position: relative;
         white-space: normal;
         scroll-snap-align: center;
         user-select: none;
-	}
+    }
 }

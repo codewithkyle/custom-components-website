@@ -8,11 +8,11 @@ class CardCarouselComponent extends HTMLElement
     private _cards : Array<HTMLElement>;
     private _mouse : Mouse;
     private _dragging : boolean;
-	private _dragDistance : number;
-	
-	constructor()
-	{
-		super();
+    private _dragDistance : number;
+    
+    constructor()
+    {
+        super();
         this._cards = Array.from(this.querySelectorAll('cta-card'));
         this._mouse = null;
         this._dragging = false;
@@ -100,9 +100,9 @@ class CardCarouselComponent extends HTMLElement
         }
     }
 
-	connectedCallback()
-	{
-		for(let i = 0; i < this._cards.length; i++)
+    connectedCallback()
+    {
+        for(let i = 0; i < this._cards.length; i++)
         {
             this._cards[i].addEventListener('dragstart', this.handleDragStart);
             this._cards[i].addEventListener('mouseup', this.handleDragStop);
@@ -112,7 +112,7 @@ class CardCarouselComponent extends HTMLElement
         this.addEventListener('mousemove', this.handleDrag, { passive: true });
         this.addEventListener('mousedown', this.handleMouseDown, { passive: true });
         this.addEventListener('scroll', this.handleScroll, { passive: true });
-	}
+    }
 }
 
 customElements.define('card-carousel-component', CardCarouselComponent);
