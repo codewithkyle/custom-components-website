@@ -104,7 +104,7 @@ class SourceViewComponent extends HTMLElement
             tab.dataset.view = 'SASS';
 
             const sourceCode = document.createElement('code');
-            sourceCode.innerHTML = sass;
+                sourceCode.innerText = sass;
             sourceCode.dataset.view = 'SASS';
             sourceCode.classList.add('is-hidden');
             sourceCode.classList.add('sass');
@@ -126,7 +126,7 @@ class SourceViewComponent extends HTMLElement
             tab.dataset.view = 'TS';
 
             const sourceCode = document.createElement('code');
-            sourceCode.innerHTML = typescriptData;
+            sourceCode.innerText = typescriptData;
             sourceCode.dataset.view = 'TS';
             sourceCode.classList.add('is-hidden');
             sourceCode.classList.add('typescript');
