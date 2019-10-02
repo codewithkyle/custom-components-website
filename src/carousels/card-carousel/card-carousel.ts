@@ -3,9 +3,8 @@ interface Mouse{
     y: number;
 }
 
-class CardCarousel extends HTMLElement
+class CardCarouselComponent extends HTMLElement
 {
-	private _carousel : HTMLElement;
     private _cards : Array<HTMLElement>;
     private _mouse : Mouse;
     private _dragging : boolean;
@@ -116,4 +115,4 @@ class CardCarousel extends HTMLElement
 	}
 }
 
-customElements.define('card-carousel', CardCarousel);
+customElements.define('card-carousel-component', CardCarouselComponent);

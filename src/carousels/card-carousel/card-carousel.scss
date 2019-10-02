@@ -1,19 +1,12 @@
-card-carousel
+card-carousel-component
 {
 	white-space: nowrap;
 	width: 100%;
     overflow: scroll;
-    overflow: -moz-scrollbars-none;
-    -ms-overflow-style: none;
     cursor: grab !important;
     cursor: -moz-grab !important;
     cursor: -webkit-grab !important;
     user-select: none;
-
-    &::-webkit-scrollbar{
-        width: 0 !important;
-        height: 0 !important;
-    }
 
     &:not(.is-pointer-device){
         scroll-snap-type: x mandatory;
