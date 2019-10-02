@@ -109,7 +109,7 @@ class SourceViewComponent extends HTMLElement {
                 sourceCode.innerHTML = typescriptData;
                 sourceCode.dataset.view = 'TS';
                 sourceCode.classList.add('is-hidden');
-                sourceCode.classList.add('typescript');
+                // sourceCode.classList.add('typescript');
                 this._sourceViews.appendChild(sourceCode);
                 this._tabsContainer.appendChild(tab);
             })
@@ -127,7 +127,7 @@ class SourceViewComponent extends HTMLElement {
                 sourceCode.innerHTML = markdown.toHTML(readmeData);
                 sourceCode.dataset.view = 'README';
                 sourceCode.classList.add('is-hidden');
-                sourceCode.classList.add('markdown');
+                // sourceCode.classList.add('markdown');
                 this._sourceViews.appendChild(sourceCode);
                 this._tabsContainer.appendChild(tab);
             })
@@ -140,7 +140,7 @@ class SourceViewComponent extends HTMLElement {
                     sourceCode.innerHTML = `<p>No readme available. <a href="https://github.com/codewithkyle/web-components-library/new/master/src/${e.detail.category}/${e.detail.component}" target="_blank">Create one.</a></p>`;
                     sourceCode.dataset.view = 'README';
                     sourceCode.classList.add('is-hidden');
-                    sourceCode.classList.add('markdown');
+                    // sourceCode.classList.add('markdown');
                     this._sourceViews.appendChild(sourceCode);
                     this._tabsContainer.appendChild(tab);
                 }
