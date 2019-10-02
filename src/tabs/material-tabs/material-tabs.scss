@@ -20,7 +20,6 @@ tabs-component
 		white-space: nowrap;
 		font-size: 0;
 		scroll-snap-type: x mandatory;
-		scroll-snap-align: start end;
 
 		button
 		{
@@ -37,6 +36,7 @@ tabs-component
 			display: inline-flex;
 			flex: 1 0 auto;
 			transition: all 150ms ease-in-out;
+			scroll-snap-align: center;
 
 			&::before
 			{
