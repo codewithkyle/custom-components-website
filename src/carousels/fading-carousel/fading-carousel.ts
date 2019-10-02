@@ -22,8 +22,8 @@ class FadingCarousel extends HTMLElement
         this._callback = () => {};
 
         /** Carousel Config */
-        this._transitionDuration = 300; // milliseconds
-        this._slideDuration = 5; // seconds
+        this._transitionDuration = 300; /** milliseconds */
+        this._slideDuration = 5; /** seconds */
     }
 
     private handleControlClickEvent:EventListener = this.triggerSlideSwitch.bind(this);
