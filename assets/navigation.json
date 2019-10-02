@@ -11,6 +11,7 @@
 		"text"
 	],
 	"carousels": [
+		"card-carousel",
 		"fading-carousel"
 	],
 	"fieldsets": [
